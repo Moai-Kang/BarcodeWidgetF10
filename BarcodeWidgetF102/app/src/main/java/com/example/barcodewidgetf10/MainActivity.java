@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     SwitchButton switchButton;
     SharedPreferences.Editor prefEditor;
     SharedPreferences prefs;
+    Bitmap codeImage;
     private Button scanQRBtn;
     private TextView tv;
     private ImageView iv;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                     /////////////////////////////////////////////////////
                     prefEditor.putString("checked", "false");
+                    notification();
                     prefEditor.apply();
                 }
             }
@@ -133,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             iv.setImageBitmap(bitmap);
+
+            codeImage = bitmap;
         }catch (Exception e){}
     }
 
@@ -170,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentTitle("통지");
         builder.setContentText("통지왔다");
 
-
         // 사용자가 탭을 클릭하면 자동 제거
         builder.setAutoCancel(true);//이게 위에 setOngoing때문에 작동을 안함.
 
@@ -180,18 +183,15 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
         }
 
-        Bitmap bigBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.f10logoblack);
-        //bitmap은 안드로이드에서 이미지를 표현하기 위해 사용
-        //BitmapFactory->bitmap을 다루기위해 사용하는 메소드
-        //decodeResource는 사용하고자 하는 이미지를 비트맵 형식으로 바꿔줌
-
         NotificationCompat.BigPictureStyle style =new NotificationCompat.BigPictureStyle();
         //Notification에서 사진을 받기위한
         style.setBigContentTitle("짜잔");
         style.setSummaryText("열었따");
-        style.bigPicture(bigBitmap);
+
+        style.bigPicture(codeImage);
+
         builder.setStyle(style);
-        /*val style = NotificationCompat.BigPictureStyle()
+                /*val style = NotificationCompat.BigPictureStyle()
         style.bigPicture(
                 BitmapFactory.decodeResource(R.mipmap.ic_launcher);
                 )*/
@@ -199,12 +199,16 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle(builder);
         //Class context;
         //Bitmap bigPictureBitmap = BitmapFactory.decodeResource(R.mipmap.ic_launcher);
-        bigPictureStyle.bigPicture(bigBitmap)
+        bigPictureStyle.bigPicture(codeImage)
                 .setBigContentTitle("짜잔")
                 .setSummaryText("열었다");
         // id값은
         // 정의해야하는 각 알림의 고유한 int값
         notificationManager.notify(1, builder.build());
+
+        if(prefs.getString("checked", "no").equals("yes"))
+            notificationManager.cancel(1);//취소하는 경우
+
     }
 
 }
