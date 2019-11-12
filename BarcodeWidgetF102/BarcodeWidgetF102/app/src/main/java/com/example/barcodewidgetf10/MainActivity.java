@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,6 +19,7 @@ import com.suke.widget.SwitchButton;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.preference.PreferenceManager;
 import android.view.Display;
@@ -29,16 +28,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     //토글 버튼 관련 변수
     SwitchButton switchButton;
     SharedPreferences.Editor prefEditor;
     SharedPreferences prefs;
+    Bitmap codeImage;
     private Button scanQRBtn;
     private TextView tv;
-    private ImageView iv;
-    String studentID;
-
+    public ImageView iv;
+    ArrayList<String> codeString;
+    ArrayList<String> codeFormat;
+    private ViewPager viewPager ;
+    private ImageViewAdapter pagerAdapter ;
+    ArrayListSaveByJson temp = new ArrayListSaveByJson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +56,35 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView)findViewById(R.id.textview);
         iv = (ImageView)findViewById(R.id.codeImage);
         //////////////////////////////////////////////////////////////
-        SharedPreferences sf = getSharedPreferences("sFile",MODE_PRIVATE);
+
+       // SharedPreferences sf = getSharedPreferences("sFile",MODE_PRIVATE);
         //저장된 값을 불러오기 위해 같은 네임파일을 찾음.
 
-        studentID = sf.getString("text",null);
-        //text라는 key에 저장된 값이 있는지 확인. 아무값도 들어있지 않으면 널를 반환
 
-        if(studentID == null)
+        /*codeString = sf.getString("text",null);
+        //text라는 key에 저장된 값이 있는지 확인. 아무값도 들어있지 않으면 널를 반환
+        codeFormat = sf.getString("format",null);*///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22222222
+        codeString = temp.getStringArrayPref(MainActivity.this,"codeString");
+        codeFormat = temp.getStringArrayPref(MainActivity.this,"codeFormat");
+
+        if(codeString.isEmpty())
             tv.setText("바코드/QR코드를 스캔하세요.");
         else {
-            tv.setText(studentID);
-            createBitMatrix(studentID);
+            //tv.setText(codeString.get(0));
+            String tempString="";
+            for(int i=0; i<codeString.size(); i++)
+            {
+                tempString = tempString + " \n " + codeString.get(i);
+            }
+            tv.setText(tempString);
+            createBitMatrix(codeString.get(0), codeFormat.get(0));
         }
         //////////////////////////////////////////////////////////////
 
         switchInit();
+        viewPager = (ViewPager) findViewById(R.id.viewPager) ;
+        pagerAdapter = new ImageViewAdapter(this) ;
+        viewPager.setAdapter(pagerAdapter) ;
 
         scanQRBtn.setOnClickListener(new View.OnClickListener() { // 버튼을 클릭했을 시에 수행할 내용
             @Override
@@ -76,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         switchButton = findViewById(R.id.swithButton);
         prefEditor = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
         prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+
 
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
@@ -94,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
                     /////////////////////////////////////////////////////
                     prefEditor.putString("checked", "false");
+                    notification();
                     prefEditor.apply();
                 }
             }
@@ -118,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    void createBitMatrix(String text) {
+    void createBitMatrix(String text, String format) {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 
         //////////////////////////////////
@@ -129,11 +154,15 @@ public class MainActivity extends AppCompatActivity {
         //////////////////////////디스플레이의 길이를 알기 위한 방법.
 
         try{
-            BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.CODE_39, width,400);
+            BarcodeFormat f = BarcodeFormat.valueOf(format);//format과 같은 상수형을 대입
+            BitMatrix bitMatrix = multiFormatWriter.encode(text,f, width,400);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             iv.setImageBitmap(bitmap);
+
+            codeImage = bitmap;
         }catch (Exception e){}
+
     }
 
     @Override
@@ -142,21 +171,37 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1) {
             if (resultCode == Activity.RESULT_OK) {
-                studentID = data.getExtras().getString("studentID");
+                /*for(int i=0; i<codeString.size(); i++)
+                {
+                    if(codeString.get(i) == data.getExtras().getString("codeString"))
+                    {
+                        return;
+                    }
+                }*/
+                codeString.add(data.getExtras().getString("codeString"));
+                codeFormat.add(data.getExtras().getString("codeFormat"));
+                String text = codeString.get(codeString.size()-1); // 사용자가 입력한 저장할 데이터
+                String format = codeFormat.get(codeFormat.size()-1); // 스캔한 코드의 형식
+
+                temp.setStringArrayPref(MainActivity.this,"codeString",codeString);
+                temp.setStringArrayPref(MainActivity.this,"codeFormat",codeFormat);
+
+                /*
                 // Activity가 종료되기 전에 저장한다.
                 //SharedPreferences를 sFile이름, 기본모드로 설정
                 SharedPreferences sharedPreferences = getSharedPreferences("sFile", MODE_PRIVATE);
                 //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                String text = studentID; // 사용자가 입력한 저장할 데이터
+
 
                 editor.putString("text", text); // key, value를 이용하여 저장하는 형태
-                editor.commit();
+                editor.putString("format",format);
+                editor.commit();*/
 
                 tv.setText(text);
 
-                createBitMatrix(text);
+                createBitMatrix(text,format);
             }
         }
     }
@@ -170,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentTitle("통지");
         builder.setContentText("통지왔다");
 
-
         // 사용자가 탭을 클릭하면 자동 제거
         builder.setAutoCancel(true);//이게 위에 setOngoing때문에 작동을 안함.
 
@@ -180,18 +224,15 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
         }
 
-        Bitmap bigBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.f10logoblack);
-        //bitmap은 안드로이드에서 이미지를 표현하기 위해 사용
-        //BitmapFactory->bitmap을 다루기위해 사용하는 메소드
-        //decodeResource는 사용하고자 하는 이미지를 비트맵 형식으로 바꿔줌
-
         NotificationCompat.BigPictureStyle style =new NotificationCompat.BigPictureStyle();
         //Notification에서 사진을 받기위한
         style.setBigContentTitle("짜잔");
         style.setSummaryText("열었따");
-        style.bigPicture(bigBitmap);
+
+        style.bigPicture(codeImage);
+
         builder.setStyle(style);
-        /*val style = NotificationCompat.BigPictureStyle()
+                /*val style = NotificationCompat.BigPictureStyle()
         style.bigPicture(
                 BitmapFactory.decodeResource(R.mipmap.ic_launcher);
                 )*/
@@ -199,12 +240,15 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle(builder);
         //Class context;
         //Bitmap bigPictureBitmap = BitmapFactory.decodeResource(R.mipmap.ic_launcher);
-        bigPictureStyle.bigPicture(bigBitmap)
+        bigPictureStyle.bigPicture(codeImage)
                 .setBigContentTitle("짜잔")
                 .setSummaryText("열었다");
         // id값은
         // 정의해야하는 각 알림의 고유한 int값
         notificationManager.notify(1, builder.build());
+
+        if(prefs.getString("checked", "no").equals("yes"))
+            notificationManager.cancel(1);//취소하는 경우
     }
 
 }

@@ -38,7 +38,8 @@ public class ScanQR extends AppCompatActivity {
 
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(ScanQR.this, MainActivity.class);
-                intent.putExtra("studentID",result.getContents());
+                intent.putExtra("codeString",result.getContents());
+                intent.putExtra("codeFormat",result.getFormatName());
                 setResult(Activity.RESULT_OK,intent);
                 finish();
             }
