@@ -26,6 +26,7 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager ;
     private ImageViewAdapter pagerAdapter ;
     ArrayListSaveByJson temp = new ArrayListSaveByJson();
+    Bitmap sub_codeImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,11 +158,15 @@ public class MainActivity extends AppCompatActivity {
         try{
             BarcodeFormat f = BarcodeFormat.valueOf(format);//format과 같은 상수형을 대입
             BitMatrix bitMatrix = multiFormatWriter.encode(text,f, width,400);
+            BitMatrix sub_bitMatrix=multiFormatWriter.encode(text, BarcodeFormat.CODE_39,width,200);
+
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            Bitmap sub_bitmap=barcodeEncoder.createBitmap(sub_bitMatrix);//notification 커스텀 전용 바코드
             iv.setImageBitmap(bitmap);
 
             codeImage = bitmap;
+            sub_codeImage=sub_bitmap;//커스텀용 이미지
         }catch (Exception e){}
 
     }
@@ -207,48 +213,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void notification() {
+        RemoteViews customView = new RemoteViews(getPackageName(), R.layout.custom_view);//커스텀
+        customView.setImageViewBitmap(R.id.content_view,sub_codeImage);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default").setOngoing(true);
         //노티피케이션의 객체 선언부분이라고 보면됨
-        //setOngoing을 하면 고정
+        //        //setOngoing을 하면 고정
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("통지");
-        builder.setContentText("통지왔다");
-
+        builder.setCustomContentView(customView);
+        //builder.build();
         // 사용자가 탭을 클릭하면 자동 제거
         builder.setAutoCancel(true);//이게 위에 setOngoing때문에 작동을 안함.
-
         // 알림 표시
+        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);//잠금화면에서도 보이게 하는 역할
+
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
+            //builder.setVisibility();
         }
 
-        NotificationCompat.BigPictureStyle style =new NotificationCompat.BigPictureStyle();
-        //Notification에서 사진을 받기위한
-        style.setBigContentTitle("짜잔");
-        style.setSummaryText("열었따");
-
-        style.bigPicture(codeImage);
-
-        builder.setStyle(style);
-                /*val style = NotificationCompat.BigPictureStyle()
-        style.bigPicture(
-                BitmapFactory.decodeResource(R.mipmap.ic_launcher);
-                )*/
-
-        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle(builder);
-        //Class context;
-        //Bitmap bigPictureBitmap = BitmapFactory.decodeResource(R.mipmap.ic_launcher);
-        bigPictureStyle.bigPicture(codeImage)
-                .setBigContentTitle("짜잔")
-                .setSummaryText("열었다");
         // id값은
         // 정의해야하는 각 알림의 고유한 int값
         notificationManager.notify(1, builder.build());
 
-        if(prefs.getString("checked", "no").equals("yes"))
+        if (prefs.getString("checked", "no").equals("yes"))
             notificationManager.cancel(1);//취소하는 경우
-    }
 
+    }
 }
