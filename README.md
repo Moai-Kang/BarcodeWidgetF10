@@ -1,6 +1,6 @@
 # Barcode Widget
 세종대학교 학생증에 있는 바코드를 카메라로 인식한 뒤, 바코드의 정보를 읽고, 정보를 이미지 파일로 만든다.  
-바코드 이미지 파일을 Notification Bar, Widget에 띄워서 세종대학교 공식 통합 앱에 들어가지 않고 편리하게 사용할 수 있게 하는 어플.  
+바코드 이미지 파일을 Notification Bar에 띄워서 세종대학교 공식 통합 앱에 들어가지 않고 편리하게 사용할 수 있게 하는 어플.  
 
 
 ### made by F10 Company
@@ -37,8 +37,6 @@ Play Store 업로드 예정
 
 ### 김영우 (kouym7979)
 
-- Widget
-
 - NotificationBar
 
 ### 윤혜정
@@ -48,7 +46,6 @@ Play Store 업로드 예정
 ## 라이센스 (License)
 - ZXing
 
-- zxweng Toggle Button( https://github.com/zcweng/SwitchButton )
 
 ## 버그들 (Known Bugs)
 
