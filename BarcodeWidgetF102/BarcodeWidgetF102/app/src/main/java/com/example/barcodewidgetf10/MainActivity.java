@@ -22,18 +22,21 @@ import androidx.core.app.NotificationCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     //토글 버튼 관련 변수
     SwitchButton switchButton;
     SharedPreferences.Editor prefEditor;
@@ -42,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private Button scanQRBtn;
     private TextView tv;
     public ImageView iv;
-    ArrayList<String> codeString;
-    ArrayList<String> codeFormat;
+    public ArrayList<String> codeString;
+    public ArrayList<String> codeFormat;
     private ViewPager viewPager ;
     private ImageViewAdapter pagerAdapter ;
     ArrayListSaveByJson temp = new ArrayListSaveByJson();
@@ -99,26 +102,35 @@ public class MainActivity extends AppCompatActivity {
         prefEditor = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit();
         prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
-
-
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked) {
                     // DO what ever you want here when button is enabled
                     // 버튼이 ON 일때 하는 동작
+
+
+
+                    SetBarcodeDialog setDialog = new SetBarcodeDialog(MainActivity.this); //다이얼로그를 선언한다.
+                    setDialog.callFunction(codeString); // 다이얼로그를 호출한다.
                     notification();
+                    Log.d("asdf", "asdf");
+                    view.toggle(false);
+                    Log.d("asdf", "asdf123");
+
+
                     /////////////////////////////////////////////////////
-                    prefEditor.putString("checked", "yes");
+                    prefEditor.putString("checked", "false");
                     prefEditor.apply();
+
+
                 }
                 else {
                     // DO what ever you want here when button is disabled
                     //버튼이 OFF 일때 하는 동작
-
+                    notification();
                     /////////////////////////////////////////////////////
                     prefEditor.putString("checked", "false");
-                    notification();
                     prefEditor.apply();
                 }
             }
@@ -127,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getString("checked", "no").equals("yes")) {
             switchButton.setChecked(true);
         }
+
         else {
             switchButton.setChecked(false);
         }
@@ -193,8 +206,6 @@ public class MainActivity extends AppCompatActivity {
                 //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-
-
                 editor.putString("text", text); // key, value를 이용하여 저장하는 형태
                 editor.putString("format",format);
                 editor.commit();*/
@@ -207,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void notification() {
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default").setOngoing(true);
         //노티피케이션의 객체 선언부분이라고 보면됨
         //setOngoing을 하면 고정
