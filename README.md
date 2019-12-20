@@ -7,7 +7,7 @@
 ![KakaoTalk_20191103_232307793](https://user-images.githubusercontent.com/52201658/68211378-ca376880-001a-11ea-8efb-4bb4f6e0a7da.png)
 ## 설치 방법 (Installation)
 
-Play Store 업로드 예정
+https://play.google.com/store/apps/details?id=com.f10company.barcodewidgetf10 
 ## 사용 방법 (Usage)
 디자인이 완료된 이후, 업로드 예정
 
