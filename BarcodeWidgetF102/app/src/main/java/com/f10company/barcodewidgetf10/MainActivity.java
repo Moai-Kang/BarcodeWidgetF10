@@ -10,12 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
 
 import android.util.Log;
 import android.view.Display;
@@ -25,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,10 +35,14 @@ import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import me.relex.circleindicator.CircleIndicator;
+import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView license;
     static Context ctx;
-
+    //EditText barcode;//바코드 직접 입력받기
     ImageView emptyImage;
 
     @Override
@@ -70,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scanQRBtn = (ImageButton) findViewById(R.id.QRBarcodeBtn);
         tv = (TextView) findViewById(R.id.nickname);
         emptyImage = (ImageView) findViewById(R.id.emptyImage);
-        license=(TextView)findViewById(R.id.openSource);
+        license = (TextView) findViewById(R.id.openSource);
 
         ctx = getBaseContext();
         display = getWindowManager().getDefaultDisplay();
@@ -78,15 +85,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codeString = temp.getStringArrayPref(MainActivity.this, "codeString");
         codeFormat = temp.getStringArrayPref(MainActivity.this, "codeFormat");
         codeeNickname = temp.getStringArrayPref(MainActivity.this, "codeNickname");
-
+        //barcode=(EditText)findViewById(R.id.barcode_edit);//바코드 직접입력
+        final EditText barcode = new EditText(MainActivity.this);
         addAlarmBarListSetting();
         setViewPager();
 
-        scanQRBtn.setOnClickListener(new View.OnClickListener() { // 버튼을 클릭했을 시에 수행할 내용
+        scanQRBtn.setOnClickListener(new View.OnClickListener() { // 버튼을 클릭했을 시에 수행할 내용, +버튼 눌렀을때의 동작
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ScanQR.class);
-                startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
+                final String[] items = {"카메라 인식", "직접입력","사진 가져오기"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("설정");//여기서부터 다시
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0) {
+                            Intent intent = new Intent(MainActivity.this, ScanQR.class);
+                            startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
+                        }
+                        else if (which == 1) {
+                            AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
+                            builder2.setTitle("바코드를 입력해주세요.");
+                            builder2.setView(barcode);
+                            builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Point size = new Point();
+                                    MainActivity.display.getSize(size);
+                                    int width = size.x;
+                                    int height = size.y;
+                                    Log.d("확인","입력한 바코드는:"+barcode.getText().toString());
+                                    codeString.add(barcode.getText().toString());
+                                    codeFormat.add(CODE_128);
+                                    codeeNickname.add("바코드별명");
+                                    save();
+                                    setViewPager();
+                                    CreateCodeImage edit_bar=new CreateCodeImage();
+                                    edit_bar.createBitMatrix(barcode.getText().toString(),CODE_128,MainActivity.display);
+                                }
+                            });
+                            AlertDialog alertDialog = builder2.create();
+                            alertDialog.show();
+                        }
+                        else if(which==2){
+                            //사진가져오기 넣을 예정
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
         license.setOnClickListener(this);
@@ -104,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -119,8 +167,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             skyContent.setLayoutParams(lp_but);
 
-            skyContent=null;
-            lp_but=null;
+            skyContent = null;
+            lp_but = null;
 
         }
     }
@@ -146,9 +194,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             emptyImage.setPadding(margin, 0, margin, 0);
 
             vp.setAdapter(pagerAdapter);
-
-            CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-            indicator.setViewPager(vp);
         }
         Log.d("adad", "adad");
     }
@@ -216,17 +261,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bitmap sub_codeImage = cci.createBitMatrix(MainActivity.codeStringWithoutQRCode.get(count),
                 MainActivity.codeFormatWithoutQRCode.get(count), MainActivity.display); // 이 줄 수정
         customView.setImageViewBitmap(R.id.content_view, sub_codeImage);
-        Intent Pintent=new Intent(this,MainActivity.class);//Pending Intent에 적용될 클래스
-        PendingIntent notiIntent =PendingIntent.getActivity(this,0,Pintent,PendingIntent.FLAG_UPDATE_CURRENT);//노티피케이션 클릭시 홈화면으로 이동
+        Intent Pintent = new Intent(this, MainActivity.class);//Pending Intent에 적용될 클래스
+        PendingIntent notiIntent = PendingIntent.getActivity(this, 0, Pintent, PendingIntent.FLAG_UPDATE_CURRENT);//노티피케이션 클릭시 홈화면으로 이동
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default").setOngoing(true);
         //노티피케이션의 객체 선언부분이라고 보면됨
         // setOngoing을 하면 고정
         builder.setSmallIcon(R.drawable.noti_icon);
+        builder.setSubText("테스트입니다");
         builder.setCustomContentView(customView);
         builder.setContentIntent(notiIntent);//Pending 인텐트를 실행
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
         // 사용자가 탭을 클릭하면 자동 제거
-       // builder.setAutoCancel(true);//이게 위에 setOngoing때문에 작동을 안함.
+        // builder.setAutoCancel(true);//이게 위에 setOngoing때문에 작동을 안함.
         // 알림 표시
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -285,6 +331,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View v) {
-        startActivity(new Intent(this,OpenSource.class));
+        startActivity(new Intent(this, OpenSource.class));
     }
 }
