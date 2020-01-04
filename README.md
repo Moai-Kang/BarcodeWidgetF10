@@ -38,9 +38,11 @@ https://play.google.com/store/apps/details?id=com.f10company.barcodewidgetf10
 ### 김영우 (kouym7979)
 
 - NotificationBar
+- OpenSource Licence
+- Generate Barcode through direct barcode input
 
 ### 윤혜정
-- Design layout and contents
+- Design layout and contents 
 
 
 ## 라이센스 (License)
