@@ -12,5 +12,8 @@
         android:theme="@style/AppTheme.AppBarOverlay"></com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
+    <EditText
+        android:id="@+id/barcode_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
