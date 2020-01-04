@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BarcodeWidgetF10</string>
     <string name="action_info">Information</string>
+    <string name="setNickname">바코드 별명</string>
 </resources>
