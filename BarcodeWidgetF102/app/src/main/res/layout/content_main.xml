@@ -1,49 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:toggle="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:background="@color/colorMainSkyBlue"
+    android:orientation="vertical"
+    android:weightSum="100"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-
-    <Button
-        android:id="@+id/QRBarcodeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-
-        android:text="QR코드 / 바코드 추가하기" />
-
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-
-        android:text="asdf" />
-
-
-    <com.example.barcodewidgetf10.ForViewPagerSize
-        android:id="@+id/vp"
+    <RelativeLayout
+        android:id="@+id/skyContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_height="match_parent"
+        android:layout_weight="55.70">
+
+        <ImageButton
+            android:id="@+id/QRBarcodeBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_button" />
+
+        <ImageView
+            android:id="@+id/emptyImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/QRBarcodeBtn"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/empty"
+
+            />
+
+
+        <com.f10company.barcodewidgetf10.ForViewPagerSize
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+        <me.relex.circleindicator.CircleIndicator
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:id="@+id/indicator"
+            android:layout_below="@id/QRBarcodeBtn"/>
+
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="44.30"
+        android:background="@drawable/view_shape_main"
+        android:gravity="center_horizontal">
+
+        <ListView
+            android:id="@+id/checkNoticeList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:fadeScrollbars="true"
+            android:dividerHeight="30dp"
+            android:divider="#ffffff"
+            android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/vp"
-        android:orientation="vertical"
-        android:id="@+id/linearlayout">
-   <ListView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/checkNoticeList" />
-</LinearLayout>
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <TextView
+
+            android:id="@+id/openSource"
+            android:text="ⓒ오픈소스 라이센스"
+            android:gravity="center"
+            android:background="#ffffff"
+            android:textColor="#A9A9A9"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            />
+    </LinearLayout>
+
+</LinearLayout>
