@@ -42,6 +42,8 @@ import com.google.zxing.common.BitMatrix;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.relex.circleindicator.CircleIndicator;
+
 import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -196,6 +198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             emptyImage.setPadding(margin, 0, margin, 0);
 
             vp.setAdapter(pagerAdapter);
+
+            CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+            indicator.setViewPager(vp);
         }
         Log.d("adad", "adad");
     }
