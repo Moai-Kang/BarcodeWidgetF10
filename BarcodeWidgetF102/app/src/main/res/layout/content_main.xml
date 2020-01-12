@@ -46,12 +46,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
 
+
         <me.relex.circleindicator.CircleIndicator
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:id="@+id/indicator"
-            android:layout_below="@+id/QRBarcodeBtn"/>
-
+            android:layout_below="@+id/vp"/>
 
     </RelativeLayout>
 
