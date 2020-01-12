@@ -46,6 +46,7 @@ import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    //EsterEgg mother Ffffff
     SharedPreferences prefs;
     private ImageButton scanQRBtn;
     TextView tv;
