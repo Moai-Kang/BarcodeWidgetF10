@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //This is the test versinontlqkf
+    //EasterEgg
 
     public static void setStatusBarColor(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
