@@ -34,6 +34,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -41,6 +42,8 @@ import com.google.zxing.common.BitMatrix;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.relex.circleindicator.CircleIndicator;
 
 import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
@@ -200,6 +203,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             emptyImage.setPadding(margin, 0, margin, 0);
 
             vp.setAdapter(pagerAdapter);
+
+            CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+            indicator.setViewPager(vp);
         }
         Log.d("adad", "adad");
     }
@@ -244,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         menu = new ArrayList<>();
         menu.add("알림창 설정");
+        menu.add("어플리케이션 설명");
 
         ArrayAdapter<String> menuAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_activated_1, menu);
         layout_below.setAdapter(menuAdapter);
@@ -251,7 +258,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         layout_below.setOnItemClickListener(new AdapterView.OnItemClickListener() { //리스트 뷰의 각 아이템을 클릭 했을 때
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showBarcodeList();
+                switch(position) {
+                    case 0 :
+                        showBarcodeList();
+                        break;
+                    case 1 :
+                        Intent explainIntent = new Intent(getApplicationContext(), ExplainActivity.class);
+                        startActivity(explainIntent);
+
+                        break;
+                }
             }
         });
     }
@@ -264,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         CreateCodeImage cci = new CreateCodeImage();
         RemoteViews customView = new RemoteViews(getPackageName(), R.layout.custom_view);//커스텀
+
         Bitmap sub_codeImage = cci.createBitMatrix(MainActivity.codeStringWithoutQRCode.get(count),
                 MainActivity.codeFormatWithoutQRCode.get(count), MainActivity.display); // 이 줄 수정
         customView.setImageViewBitmap(R.id.content_view, sub_codeImage);
