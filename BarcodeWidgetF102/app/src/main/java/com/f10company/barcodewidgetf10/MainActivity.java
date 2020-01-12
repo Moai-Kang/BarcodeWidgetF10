@@ -258,6 +258,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         CreateCodeImage cci = new CreateCodeImage();
         RemoteViews customView = new RemoteViews(getPackageName(), R.layout.custom_view);//커스텀
+
         Bitmap sub_codeImage = cci.createBitMatrix(MainActivity.codeStringWithoutQRCode.get(count),
                 MainActivity.codeFormatWithoutQRCode.get(count), MainActivity.display); // 이 줄 수정
         customView.setImageViewBitmap(R.id.content_view, sub_codeImage);
