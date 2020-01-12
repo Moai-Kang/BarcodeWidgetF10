@@ -129,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         else if(which==2){
                             //사진가져오기 넣을 예정
+                            Intent intent = new Intent(MainActivity.this, ReadGalleryCodeActivity.class);
+                            startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
                         }
                     }
                 });
