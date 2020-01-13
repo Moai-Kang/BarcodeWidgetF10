@@ -3,12 +3,14 @@
     android:layout_height="match_parent"
     android:background="#09C"
     android:padding="@dimen/widget_margin">
+
     <StackView
         android:id="@+id/stack_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:loopViews="true"/>
+
 
     <TextView
         android:id="@+id/appwidget_text"

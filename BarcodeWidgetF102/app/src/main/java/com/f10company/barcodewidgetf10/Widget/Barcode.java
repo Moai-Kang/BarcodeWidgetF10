@@ -1,5 +1,6 @@
 package com.f10company.barcodewidgetf10.Widget;
 
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,6 +10,8 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.f10company.barcodewidgetf10.MainActivity;
+
+
 import com.f10company.barcodewidgetf10.R;
 
 /**
@@ -20,9 +23,11 @@ public class Barcode extends AppWidgetProvider {
                                 int appWidgetId) {
 
         CharSequence widgetText = "바코드를 선택해주세요";//위젯에 들어갈 텍스트
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.barcode);
         views.setTextViewText(R.id.appwidget_text, widgetText);
+
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
