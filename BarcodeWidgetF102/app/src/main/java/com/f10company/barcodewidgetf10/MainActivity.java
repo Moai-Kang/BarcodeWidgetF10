@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences prefs;
     private ImageButton scanQRBtn;
     TextView tv;
+    ForViewPagerSize vp;
 
     static ArrayList<String> codeString;
     static ArrayList<String> codeFormat;
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final EditText barcode = new EditText(MainActivity.this);
         addAlarmBarListSetting();
         setViewPager();
+
+
 
         scanQRBtn.setOnClickListener(new View.OnClickListener() { // 버튼을 클릭했을 시에 수행할 내용, +버튼 눌렀을때의 동작
             @Override
@@ -143,6 +146,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         license.setOnClickListener(this);
+
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+        indicator.setViewPager(vp);
     }
 
     //This is the test versinontlqkf
@@ -185,7 +191,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setViewPager() {
         if (!codeString.isEmpty()) {
             emptyImage.setVisibility(View.GONE);
-            ForViewPagerSize vp;
+
+
+
             vp = (ForViewPagerSize) findViewById(R.id.vp);
 
             pagerAdapter = new ImageViewAdapter(this);
@@ -201,11 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             vp.setPageMargin(margin / 2);
 
             emptyImage.setPadding(margin, 0, margin, 0);
-
             vp.setAdapter(pagerAdapter);
 
-            CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-            indicator.setViewPager(vp);
         }
         Log.d("adad", "adad");
     }

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -83,6 +84,45 @@ public class ImageViewAdapter extends PagerAdapter {
                 }
             });
 
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+                    builder.setTitle("바코드를 삭제하시겠습니까?");
+
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.d("test1","main : "+MainActivity.codeeNickname.size());
+                            Log.d("test1","adapter : " + codeNickname.size());
+                            Log.d("test1","positin : "+Integer.toString(position));
+
+                            codeNickname.remove(position);
+                            codeFormat.remove(position);
+                            codeString.remove(position);
+
+                            Log.d("test1","main : "+MainActivity.codeeNickname.size());
+                            Log.d("test1","adapter : " + codeNickname.size());
+                            Log.d("test1","positin : "+Integer.toString(position));
+
+                            MainActivity.temp.setStringArrayPref(context, "codeString", codeString);
+                            MainActivity.temp.setStringArrayPref(context, "codeFormat", codeFormat);
+                            MainActivity.temp.setStringArrayPref(context, "codeNickname", codeNickname);
+                            notifyDataSetChanged();
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    builder.show();
+
+                    return false;
+                }
+            });
+
             if (codeString.isEmpty()) {
             } else {
                 img.setImageBitmap(cci.createBitMatrix(codeString.get(position), codeFormat.get(position), display));
@@ -146,8 +186,8 @@ public class ImageViewAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        if (codeString.isEmpty())
-            return 1;
+        /*if (codeString.isEmpty())
+            return 1;*/
         return codeString.size();
     }
 
