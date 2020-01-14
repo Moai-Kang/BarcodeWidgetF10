@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -111,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
                         }
                         else if (which == 1) {
+                            if(barcode.getParent()!=null){
+                                ((ViewGroup)barcode.getParent()).removeView(barcode);
+                                barcode.setText("");
+                            }
                             AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
                             builder2.setTitle("바코드를 입력해주세요.");
                             builder2.setView(barcode);
@@ -152,7 +157,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //This is the test versinontlqkf
+
     //EasterEgg
+
 
     public static void setStatusBarColor(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
