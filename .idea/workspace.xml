@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7b7529ac-1c8b-4160-b92d-5ba35cc6017b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/release/amatta_membership.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/release/amatta_membership_1.0.0.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/release/app-release.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/release/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/androidTest/java/com/f10company/barcodewidgetf10/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/app_icon-web.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/assets/opensource.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/ArrayListSaveByJson.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/CreateCodeImage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/ExplainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/ExplainViewPagerAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/ForViewPagerSize.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/ImageViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/OpenSource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/ReadGalleryCodeActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/ScanQR.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/SplashActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/java/com/f10company/barcodewidgetf10/Widget/Barcode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/anim/fadein.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/anim/fadeout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-anydpi/rotate_clock.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-hdpi/noti_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-hdpi/rotate_clock.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-mdpi/noti_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-mdpi/rotate_clock.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-nodpi/example_appwidget_preview.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-xhdpi/noti_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-xhdpi/rotate_clock.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-xxhdpi/noti_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-xxhdpi/rotate_clock.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable-xxxhdpi/noti_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/add_button.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/app_icon_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/empty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/image_border.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/non_card.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/notification_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/plzsetqrcode.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/view_shape_card.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/drawable/view_shape_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/activity_explain.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/activity_open_source.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/activity_read_gallery_code.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/activity_scan_qr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/activity_splash.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/barcode.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/content_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/custom_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/explain_page.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/layout/pages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/menu/menu_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-anydpi-v26/app_icon.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-anydpi-v26/app_icon_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-hdpi/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-hdpi/app_icon_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-hdpi/app_icon_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-mdpi/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-mdpi/app_icon_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-mdpi/app_icon_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xhdpi/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xhdpi/app_icon_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xhdpi/app_icon_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxhdpi/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxhdpi/app_icon_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxhdpi/app_icon_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxxhdpi/app_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxxhdpi/app_icon_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxxhdpi/app_icon_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/values-v14/dimens.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/values/dimens.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/main/res/xml/barcode_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/app/src/test/java/com/f10company/barcodewidgetf10/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/appkey/f10appkey.jks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BarcodeWidgetF102/settings.gradle" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/app/.gradle/" />
+    <ignored path="$PROJECT_DIR$/app/build/" />
+    <ignored path="$PROJECT_DIR$/app/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/app.iml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/app/app.iml" />
+        <option value="$PROJECT_DIR$/.idea/modules/My_Application.iml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="732" />
+    <option name="y" value="246" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Source Files'; set:Project Source Files; class com.jetbrains.cidr.lang.search.scopes.ProjectSourcesScopeProvider$SourceFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="My Application" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barcode_widget" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="My Application" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Barcode_widget" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="My Application" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Moai_Kang\Desktop\Barcode_widget" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="My Application" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Moai_Kang\Desktop\Barcode_widget" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BarcodeWidgetF102" />
+    <property name="not.eligible.for.single.variant.sync" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7b7529ac-1c8b-4160-b92d-5ba35cc6017b" name="Default Changelist" comment="" />
+      <created>1579237443642</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579237443642</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.3342282" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Build Variants" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Designer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Resources Explorer" order="7" />
+      <window_info id="Favorites" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="TODO" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Build" order="4" visible="true" weight="0.32907802" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Gradle" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/app.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
