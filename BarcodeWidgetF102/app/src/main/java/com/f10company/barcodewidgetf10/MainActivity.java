@@ -49,7 +49,7 @@ import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //EsterEgg mother Ffffff//test//2//3
+    //EsterEgg mother Ffffff//test//2//3//4
     SharedPreferences prefs;
     private ImageButton scanQRBtn;
     TextView tv;
