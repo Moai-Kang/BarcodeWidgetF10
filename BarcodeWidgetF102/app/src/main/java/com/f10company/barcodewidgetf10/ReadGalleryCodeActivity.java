@@ -33,7 +33,7 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
     CropImageView cropImageView;
     Button choose,rotate;
     ImageView imageView;
-    //int rotation = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,6 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
 
         imageView.setVisibility(View.INVISIBLE);
 
-        /*rotate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rotation+=90;
-                cropImageView.setRotation(rotation);
-            }
-        });*/
 
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
