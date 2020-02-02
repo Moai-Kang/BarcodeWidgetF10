@@ -19,8 +19,6 @@
         <activity android:name=".Information"></activity>
 
         <activity android:name=".ExplainActivity"></activity>
-        <activity
-
 
         <receiver android:name=".Widget.Barcode">
             <intent-filter>
@@ -37,10 +35,6 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
 
-        <activity android:name=".ExplainActivity" />
-
-
-        
 
         <activity
             android:name=".OpenSource"
