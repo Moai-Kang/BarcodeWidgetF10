@@ -56,11 +56,6 @@ import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-
-    //test
-    //Go to master
-    //plz
     private ImageButton  questionButton, exclamationButton;
     private Button addCameraButton, addAlbumButton, addSelfButton, settingButton;
 
@@ -86,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CircleIndicator indicator;
 
     static int nowPosition =0 ; // 현재 디스플레이에 띄어저 있는 장소
+    static int nowNotificationCodePosition ; // 노티피케이션에 띄어져 있는 코드 위치
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -407,6 +403,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void notification(int count) {
+
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         if (count == -1) {
             notificationManager.cancel(1);//취소하는 경우
