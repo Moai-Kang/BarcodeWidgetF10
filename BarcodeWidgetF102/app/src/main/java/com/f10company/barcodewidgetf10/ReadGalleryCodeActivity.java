@@ -33,7 +33,7 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
     CropImageView cropImageView;
     Button choose,rotate;
     ImageView imageView;
-    //int rotation = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,6 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
 
         imageView.setVisibility(View.INVISIBLE);
 
-        /*rotate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rotation+=90;
-                cropImageView.setRotation(rotation);
-            }
-        });*/
 
         choose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,12 +60,6 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
             }
         });
 
-        /*Intent intent = new Intent();
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);//@@@@@@@
-
-        intent.setAction(Intent.ACTION_GET_CONTENT);*/
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 
@@ -127,14 +114,19 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
             Intent intent = new Intent(ReadGalleryCodeActivity.this, MainActivity.class);
             intent.putExtra("codeString", result1.getText());
             intent.putExtra("codeFormat", result1.getBarcodeFormat().toString());
-            intent.putExtra("codeNickname", "바코드 별명");
+
+            if(result1.getBarcodeFormat().toString().equals("QR_CODE"))
+                intent.putExtra("codeNickname", "QR코드 별명");
+            else
+                intent.putExtra("codeNickname", "바코드 별명");
+
             setResult(Activity.RESULT_OK, intent);
             finish();
             return true;
         } catch (Exception e) {
             resultString = "ERROR";
             Log.d("test1", e.toString());
-            toastMessege("바코드 식별 불가");
+            toastMessege("코드 식별 불가");
 
             return false;
         }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -39,7 +40,10 @@ public class ScanQR extends AppCompatActivity {
                 Intent intent = new Intent(ScanQR.this, MainActivity.class);
                 intent.putExtra("codeString", result.getContents());
                 intent.putExtra("codeFormat", result.getFormatName());
-                intent.putExtra("codeNickname", "바코드 별명");
+                if(result.getFormatName().equals("QR_CODE"))
+                    intent.putExtra("codeNickname", "QR코드 별명");
+                else
+                    intent.putExtra("codeNickname", "바코드 별명");
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

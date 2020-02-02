@@ -1,17 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.f10company.barcodewidgetf10.MainActivity">
 
     <item
-        android:id="@+id/info"
+        android:id="@+id/changeNick"
         android:orderInCategory="100"
-        android:title="회사 소개"
+        android:title="닉네임 변경"
         app:showAsAction="never" />
     <item
-        android:id="@+id/openSource2"
+        android:id="@+id/removeCode"
         android:orderInCategory="100"
-        android:title="오픈소스 라이센스"
+        android:title="바코드/QR코드 삭제"
         app:showAsAction="never" />
 
 </menu>
