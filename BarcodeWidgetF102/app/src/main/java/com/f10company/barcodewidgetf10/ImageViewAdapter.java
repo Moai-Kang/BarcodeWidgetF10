@@ -112,7 +112,7 @@ public class ImageViewAdapter extends PagerAdapter {
                                         MainActivity.codeFormat.remove(position);
                                         MainActivity.codeString.remove(position);
 
-                                        notifyDataSetChanged();
+                                        notifyDataSetChanged(); 
                                     }
                                 });
                                 builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
