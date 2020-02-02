@@ -1,17 +1,23 @@
 package com.f10company.barcodewidgetf10;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Point;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
+
+import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class ImageViewAdapter extends PagerAdapter {
 
@@ -70,17 +78,57 @@ public class ImageViewAdapter extends PagerAdapter {
         if (mContext != null) {
             // LayoutInflater를 통해 "/res/layout/pages.xml"을 뷰로 생성.
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.pages, container, false);
+            //view = inflater.inflate(R.layout.pages, container, false);
+            view = inflater.inflate(R.layout.pages,null);
 
             CreateCodeImage cci = new CreateCodeImage();
             nick = view.findViewById(R.id.nickname);
             code = view.findViewById(R.id.code);
             img = view.findViewById(R.id.codeImage);
 
-            nick.setOnClickListener(new View.OnClickListener() {
+            view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
-                    changeNick(view, position);
+                public boolean onLongClick(final View v) {
+                    final String[] items = {"닉네임 변경", "삭제"};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle("설정");//여기서부터 다시
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == 0)
+                            {
+                                changeNick(v,position);
+                            }
+                            else if (which == 1)
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+                                builder.setTitle("바코드/QR코드를 삭제하시겠습니까?");
+
+                                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        MainActivity.codeeNickname.remove(position);
+                                        MainActivity.codeFormat.remove(position);
+                                        MainActivity.codeString.remove(position);
+
+                                        notifyDataSetChanged();
+                                    }
+                                });
+                                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                });
+                                builder.show();
+                            }
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                    return false;
                 }
             });
 
@@ -124,28 +172,21 @@ public class ImageViewAdapter extends PagerAdapter {
             });
 
             if (codeString.isEmpty()) {
-            } else {
+            }
+            else {
                 img.setImageBitmap(cci.createBitMatrix(codeString.get(position), codeFormat.get(position), display));
                 nick.setText(codeNickname.get(position)); //코드 별명 만들면 별명으로
+
                 if (!codeFormat.get(position).equals("QR_CODE")) {
                     code.setText(codeString.get(position));
-                } else {
-                    img.getLayoutParams().height = 450;
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    lp.setMargins(0, 0, 0, 50);
+                }
+                else {
+                    code.setVisibility(View.GONE);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                    lp.setMargins(0, 0, 0, 0);
                     img.setLayoutParams(lp);
+                    img.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-                    LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    lp2.weight = 0.5f;
-                    lp2.gravity = Gravity.CENTER;
-
-                    TextView textLinearLayout = (TextView) view.findViewById(R.id.nickname);
-                    textLinearLayout.setLayoutParams(lp2);
-
-
-                    img.setScaleType(ImageView.ScaleType.MATRIX);
-                    LinearLayout card = view.findViewById(R.id.card);
-                    //card.removeView(code);
                 }
             }
         }
@@ -157,7 +198,7 @@ public class ImageViewAdapter extends PagerAdapter {
     public void changeNick(View view, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-        builder.setTitle("바코드 별명 변경");
+        builder.setTitle("닉네임 변경");
         final EditText et = new EditText(view.getContext());
         builder.setView(et);
 
@@ -186,8 +227,6 @@ public class ImageViewAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        /*if (codeString.isEmpty())
-            return 1;*/
         return codeString.size();
     }
 
