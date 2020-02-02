@@ -57,11 +57,13 @@ import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
+
     //test
     //Go to master
     //plz
     private ImageButton  questionButton, exclamationButton;
     private Button addCameraButton, addAlbumButton, addSelfButton, settingButton;
+
 
     static ArrayList<String> codeString;
     static ArrayList<String> codeFormat;
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         exclamationButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(MainActivity.this, v);
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
+
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.info:
@@ -161,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 popup.show();
             }
         });
+
 
         addCameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +216,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 alertDialog.show();
             }
         });
+
+     
+ 
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,7 +317,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             emptyImage.setVisibility(View.INVISIBLE);
             vp.setVisibility(View.VISIBLE);
 
-
             pagerAdapter = new ImageViewAdapter(this);
             pagerAdapter.getData(codeString, codeFormat, codeeNickname, display);////////54352
             pagerAdapter.setContext(MainActivity.this);
@@ -332,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             lp.setMargins(0,topMargin,0,0);
             vp.setLayoutParams(lp);
             ///////////////////////////////////////////////////////////////////////////////
+
 
             vp.setAdapter(pagerAdapter);
         }
@@ -357,6 +365,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ///////////////////////////////////////////////////////////////////////////////
 
             vp.setAdapter(pagerAdapter);
+
         }
     }
 
