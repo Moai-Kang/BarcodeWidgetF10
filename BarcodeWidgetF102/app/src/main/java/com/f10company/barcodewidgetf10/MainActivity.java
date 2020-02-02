@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     //test
+    //Go to master
     private ImageButton  questionButton, exclamationButton;
     private Button addCameraButton, addAlbumButton, addSelfButton, settingButton;
 
