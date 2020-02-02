@@ -12,10 +12,11 @@
         android:hardwareAccelerated="true"
         android:icon="@mipmap/app_icon"
         android:label="아! 맞다 멤버십"
-        android:roundIcon="@drawable/app_icon"
+        android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+        <activity android:name=".Information"></activity>
 
         <receiver android:name=".Widget.Barcode">
             <intent-filter>
@@ -31,9 +32,7 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
-
-        <activity android:name=".ExplainActivity"></activity>
-
+        <activity android:name=".ExplainActivity" />
         <activity
             android:name=".OpenSource"
             android:screenOrientation="portrait" />

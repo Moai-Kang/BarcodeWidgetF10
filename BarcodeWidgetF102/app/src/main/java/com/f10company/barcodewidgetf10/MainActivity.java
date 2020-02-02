@@ -20,18 +20,25 @@ import androidx.core.app.NotificationCompat;
 
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,10 +56,8 @@ import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //
-    SharedPreferences prefs;
-    private ImageButton scanQRBtn;
-    TextView tv;
+    private ImageButton  questionButton, exclamationButton;
+    private Button addCameraButton, addAlbumButton, addSelfButton, settingButton;
 
     static ArrayList<String> codeString;
     static ArrayList<String> codeFormat;
@@ -64,24 +69,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     static ArrayListSaveByJson temp = new ArrayListSaveByJson();
     static Display display;
 
-    ListView layout_below;
-    ArrayList<String> menu;
-    ArrayList<Integer> saveDialog;
-    boolean nowFirstWindow = true;
-
-    TextView license;
     static Context ctx;
-    //EditText barcode;//바코드 직접 입력받기
     ImageView emptyImage;
+    ForViewPagerSize vp;
+    CircleIndicator indicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        scanQRBtn = (ImageButton) findViewById(R.id.QRBarcodeBtn);
-        tv = (TextView) findViewById(R.id.nickname);
+
+        questionButton= (ImageButton) findViewById(R.id.questionButton);
+        exclamationButton= (ImageButton) findViewById(R.id.exclamationButton);
+        addCameraButton= (Button) findViewById(R.id.addByCamera);
+        addAlbumButton= (Button) findViewById(R.id.addByAlbum);
+        addSelfButton=(Button) findViewById(R.id.addBySelf);
+        settingButton=(Button) findViewById(R.id.setting);
+
         emptyImage = (ImageView) findViewById(R.id.emptyImage);
-        license = (TextView) findViewById(R.id.openSource);
 
         ctx = getBaseContext();
         display = getWindowManager().getDefaultDisplay();
@@ -89,108 +94,200 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codeString = temp.getStringArrayPref(MainActivity.this, "codeString");
         codeFormat = temp.getStringArrayPref(MainActivity.this, "codeFormat");
         codeeNickname = temp.getStringArrayPref(MainActivity.this, "codeNickname");
-        //barcode=(EditText)findViewById(R.id.barcode_edit);//바코드 직접입력
-        final EditText barcode = new EditText(MainActivity.this);
-        addAlarmBarListSetting();
-        setViewPager();
 
-        scanQRBtn.setOnClickListener(new View.OnClickListener() { // 버튼을 클릭했을 시에 수행할 내용, +버튼 눌렀을때의 동작
+        vp = (ForViewPagerSize) findViewById(R.id.vp);
+        indicator = (CircleIndicator) findViewById(R.id.indicator);
+        //barcode=(EditText)findViewById(R.id.barcode_edit);//바코드 직접입력
+
+        final EditText barcode = new EditText(MainActivity.this);
+
+
+        ///////////////////
+        /*순서 바꾸지 말 것.*/
+        setViewPager();
+        setIndicator();
+        setButtonLayout();
+        ///////////////////
+
+        questionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] items = {"카메라 인식", "직접입력","사진 가져오기"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("설정");//여기서부터 다시
-                builder.setItems(items, new DialogInterface.OnClickListener() {
+                Intent explainIntent = new Intent(getApplicationContext(), ExplainActivity.class);
+                startActivity(explainIntent);
+            }
+        });
+
+        exclamationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(MainActivity.this, v);
+                getMenuInflater().inflate(R.menu.menu_main, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0) {
-                            Intent intent = new Intent(MainActivity.this, ScanQR.class);
-                            startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.info:
+                                startActivity(new Intent(MainActivity.this, Information.class));
+                                break;
+                            case R.id.openSource2:
+                                startActivity(new Intent(MainActivity.this, OpenSource.class));
+                                break;
+                            default:
+                                break;
                         }
-                        else if (which == 1) {
-                            AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
-                            builder2.setTitle("바코드를 입력해주세요.");
-                            builder2.setView(barcode);
-                            builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Point size = new Point();
-                                    MainActivity.display.getSize(size);
-                                    int width = size.x;
-                                    int height = size.y;
-                                    Log.d("확인","입력한 바코드는:"+barcode.getText().toString());
-                                    codeString.add(barcode.getText().toString());
-                                    codeFormat.add(CODE_128);
-                                    codeeNickname.add("바코드별명");
-                                    save();
-                                    setViewPager();
-                                    CreateCodeImage edit_bar=new CreateCodeImage();
-                                    edit_bar.createBitMatrix(barcode.getText().toString(),CODE_128,MainActivity.display);
-                                }
-                            });
-                            AlertDialog alertDialog = builder2.create();
-                            alertDialog.show();
-                        }
-                        else if(which==2){
-                            //사진가져오기 넣을 예정
-                            Intent intent = new Intent(MainActivity.this, ReadGalleryCodeActivity.class);
-                            startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
-                        }
+
+                        return false;
                     }
                 });
-                AlertDialog alertDialog = builder.create();
+
+                popup.show();
+            }
+        });
+
+        addCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ScanQR.class);
+                startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
+            }
+        });
+
+        addAlbumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ReadGalleryCodeActivity.class);
+                startActivityForResult(intent, 1); //인텐트 다녀 온 후 onActivityResult 호출
+            }
+        });
+
+        addSelfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(barcode.getParent()!=null){
+                    ((ViewGroup)barcode.getParent()).removeView(barcode);
+                    barcode.setText("");
+                }
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
+                builder2.setTitle("바코드를 입력해주세요.");
+                builder2.setView(barcode);
+                builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Point size = new Point();
+                        MainActivity.display.getSize(size);
+                        int width = size.x;
+                        int height = size.y;
+                        Log.d("확인","입력한 바코드는:"+barcode.getText().toString());
+                        codeString.add(barcode.getText().toString());
+                        codeFormat.add(CODE_128);
+                        codeeNickname.add("바코드별명");
+                        save();
+                        setViewPager();
+                        CreateCodeImage edit_bar=new CreateCodeImage();
+                        edit_bar.createBitMatrix(barcode.getText().toString(),CODE_128,MainActivity.display);
+                    }
+                });
+                AlertDialog alertDialog = builder2.create();
                 alertDialog.show();
             }
         });
-        license.setOnClickListener(this);
+
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBarcodeList();
+            }
+        });
+
     }
-
-    //This is the test versinontlqkf
-    //EasterEgg
-
-    public static void setStatusBarColor(Activity activity, int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(color);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
-    }
-
-
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (nowFirstWindow) {
-            //nowFirstWindow = false;
-            save();
-            Log.d("asdf", "onWindowForcused");
+        save();
+        setViewPager();
+        setIndicator();
+    }
 
-            View skyContent = (View) findViewById(R.id.skyContent);
-            LinearLayout.LayoutParams lp_but = (LinearLayout.LayoutParams) skyContent.getLayoutParams();
+    public void setIndicator()
+    {
+        RelativeLayout.LayoutParams lp_indicator = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                30);
+        int topMargin_indicator = (int)((float)278/(float)1920*getResources().getDisplayMetrics().heightPixels); // 휴대폰 세로길이의 1920분의 278셀 top margin
+        lp_indicator.setMargins(0,topMargin_indicator,0,0);
 
-            lp_but.setMargins(0, (int) (skyContent.getHeight() / 100 * 20), 0, (int) (skyContent.getHeight() / 100 * 5.5));
+        indicator.setViewPager(vp);
+        indicator.setLayoutParams(lp_indicator);
 
-            skyContent.setLayoutParams(lp_but);
+    }
 
-            skyContent = null;
-            lp_but = null;
+    public void setButtonLayout()
+    {
+        ///////////////////
+        /*상단 버튼 크기와 마진 */
+        int buttonMargin = (int)((float)36/(float)1080*getResources().getDisplayMetrics().widthPixels); // 휴대폰 가로길이의 1080분의 36 크기
+        int buttonSize = (int)((float)88/(float)1080*getResources().getDisplayMetrics().widthPixels); // 휴대폰 가로길이의 1080분의 88 크기
 
+        RelativeLayout.LayoutParams lp_exclamation = new RelativeLayout.LayoutParams(buttonSize,buttonSize);
+        lp_exclamation.setMargins(buttonMargin,buttonMargin,buttonMargin,buttonMargin);
+
+        RelativeLayout.LayoutParams lp_question = new RelativeLayout.LayoutParams(buttonSize,buttonSize);
+        lp_question.setMargins(buttonMargin,buttonMargin,buttonMargin,buttonMargin);
+
+        lp_exclamation.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        lp_exclamation.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
+        lp_question.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        lp_question.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
+        questionButton.setLayoutParams(lp_question);
+        exclamationButton.setLayoutParams(lp_exclamation);
+
+        ///////////////////
+
+        ///////////////////
+        /*하단 버튼 크기와 마진 */
+        LinearLayout buttonLinearLayout = (LinearLayout)findViewById(R.id.buttonLayout);
+
+        float deviceWidth = getResources().getDisplayMetrics().widthPixels; //휴대폰 디스플레이 가로픽셀
+        float deviceHeight = getResources().getDisplayMetrics().heightPixels; //휴대폰 디스플레이 세로픽셀
+
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        int sideMargin = (int)((float)147/(float)1080*deviceWidth); // 휴대폰 가로길이의 147/1080 만큼의 옆마진길이
+        int topMargin = (int)((float)139/(float)1920*deviceHeight); // 휴대폰 가로길이의 162/1920 만큼의 밑마진길이
+        lp.setMargins(sideMargin,topMargin,sideMargin,0);
+        if(vp.getVisibility() == View.VISIBLE)
+        {
+            lp.addRule(RelativeLayout.BELOW, vp.getId());
         }
+        else if (vp.getVisibility() == View.INVISIBLE)
+        {
+            topMargin = (int)((float)964/(float)1920*deviceHeight);
+            lp.setMargins(sideMargin,topMargin,sideMargin,0);
+            lp.addRule(RelativeLayout.BELOW, RelativeLayout.ALIGN_PARENT_TOP);
+        }
+
+        lp.height = (int)deviceWidth - (sideMargin*2);
+        buttonLinearLayout.setLayoutParams(lp);
+        ///////////////////
     }
 
     public void setViewPager() {
+
         if (!codeString.isEmpty()) {
-            emptyImage.setVisibility(View.GONE);
-            ForViewPagerSize vp;
-            vp = (ForViewPagerSize) findViewById(R.id.vp);
+            emptyImage.setVisibility(View.INVISIBLE);
+            vp.setVisibility(View.VISIBLE);
+
 
             pagerAdapter = new ImageViewAdapter(this);
             pagerAdapter.getData(codeString, codeFormat, codeeNickname, display);////////54352
             pagerAdapter.setContext(MainActivity.this);
+            pagerAdapter.registerDataSetObserver(indicator.getDataSetObserver());
 
             int dpValue = 54;
             float d = getResources().getDisplayMetrics().density;
@@ -198,16 +295,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             vp.setClipToPadding(false);
             vp.setPadding(margin, 0, margin, 0);
-            vp.setPageMargin(margin / 2);
 
-            emptyImage.setPadding(margin, 0, margin, 0);
+            vp.setPageMargin(margin/2);
+
+            ///////////////////////////////////////////////////////////////////////////// 바코드/QR코드가 나오는 카드의 마진값 설정
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            int topMargin = (int)((float)337/(float)1920*getResources().getDisplayMetrics().heightPixels); // 휴대폰 세로길이의 1920분의 337픽셀 top margin
+            lp.setMargins(0,topMargin,0,0);
+            vp.setLayoutParams(lp);
+            ///////////////////////////////////////////////////////////////////////////////
 
             vp.setAdapter(pagerAdapter);
-
-            CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-            indicator.setViewPager(vp);
         }
-        Log.d("adad", "adad");
+
+        else if (codeString.isEmpty()) {
+            vp.setVisibility(View.GONE);
+            emptyImage.setVisibility(View.VISIBLE);
+            vp.setVisibility(View.INVISIBLE);
+
+            int dpValue = 54;
+            float d = getResources().getDisplayMetrics().density;
+            int margin = (int) (dpValue * d);
+
+            emptyImage.setCropToPadding(false);
+            emptyImage.setPadding(margin,0,margin,0);
+
+
+            ///////////////////////////////////////////////////////////////////////////// 바코드/QR코드가 나오는 카드의 마진값 설정
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            emptyImage.setLayoutParams(lp);
+            ///////////////////////////////////////////////////////////////////////////////
+
+            vp.setAdapter(pagerAdapter);
+        }
     }
 
     @Override
@@ -233,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 save();
 
-                setViewPager();
+                //setViewPager();
             }
         }
     }
@@ -242,34 +366,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         temp.setStringArrayPref(MainActivity.this, "codeString", codeString);
         temp.setStringArrayPref(MainActivity.this, "codeFormat", codeFormat);
         temp.setStringArrayPref(MainActivity.this, "codeNickname", codeeNickname);
-    }
-
-    public void addAlarmBarListSetting() {
-        layout_below = (ListView) findViewById(R.id.checkNoticeList);
-        saveDialog = new ArrayList<>();
-
-        menu = new ArrayList<>();
-        menu.add("알림창 설정");
-        menu.add("어플리케이션 설명");
-
-        ArrayAdapter<String> menuAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_activated_1, menu);
-        layout_below.setAdapter(menuAdapter);
-
-        layout_below.setOnItemClickListener(new AdapterView.OnItemClickListener() { //리스트 뷰의 각 아이템을 클릭 했을 때
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
-                    case 0 :
-                        showBarcodeList();
-                        break;
-                    case 1 :
-                        Intent explainIntent = new Intent(getApplicationContext(), ExplainActivity.class);
-                        startActivity(explainIntent);
-
-                        break;
-                }
-            }
-        });
     }
 
     void notification(int count) {
@@ -353,7 +449,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.show();
     }
 
+    @Override
     public void onClick(View v) {
-        startActivity(new Intent(this, OpenSource.class));
+
     }
 }

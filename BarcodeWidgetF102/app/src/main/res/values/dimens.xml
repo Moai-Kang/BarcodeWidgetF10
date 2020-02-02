@@ -2,7 +2,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!--
-Refer to App Widget Documentation for margin information
+Refer to App Widget Documentation for margin Information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
