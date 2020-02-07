@@ -390,8 +390,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 codeeNickname.add(data.getExtras().getString(SHARED_PREF_CODE_NICKNAME));
 
                 save();
+
+                if(vp.getVisibility()==View.INVISIBLE)
+                    setViewPager();
                 pagerAdapter.notifyDataSetChanged();
-                //setViewPager();
+
             }
         }
     }
