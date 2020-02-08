@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final static String SHARED_PREF_CODE_FORMAT= "codeFormat";
     final static String SHARED_PREF_CODE_NICKNAME= "codeNickname";
 
+    static NotificationManager notificationManager;
+    static NotificationCompat.Builder builder;
+
     private ImageViewAdapter pagerAdapter;
     static ArrayListSaveByJson temp = new ArrayListSaveByJson();
     static Display display;
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CircleIndicator indicator;
 
     static int nowPosition =0 ; // 현재 디스플레이에 띄어저 있는 장소
-    static int nowNotificationCodePosition ; // 노티피케이션에 띄어져 있는 코드 위치
+    static String nowNotificationCodePosition = NOTI_STRING ; // 노티피케이션에 띄어져 있는 코드 위치//코드지울때 노티가 해당 코드이면 같이 없어질때를 알기위해
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -407,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     void notification(int count) {
 
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         if (count == -1) {
             notificationManager.cancel(1);//취소하는 경우
             return;
@@ -419,12 +422,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MainActivity.codeFormatWithoutQRCode.get(count), MainActivity.display); // 이 줄 수정
         customView.setImageViewBitmap(R.id.content_view, sub_codeImage);
         Intent Pintent = new Intent(this, MainActivity.class);//Pending Intent에 적용될 클래스
-        PendingIntent notiIntent = PendingIntent.getActivity(this, 0, Pintent, PendingIntent.FLAG_UPDATE_CURRENT);//노티피케이션 클릭시 홈화면으로 이동
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default").setOngoing(true);
+        PendingIntent notiIntent = PendingIntent.getActivity(this, 0, Pintent, PendingIntent.FLAG_CANCEL_CURRENT);//노티피케이션 클릭시 홈화면으로 이동
+
+        nowNotificationCodePosition = codeStringWithoutQRCode.get(count);//코드지울때 노티가 해당 코드이면 같이 없어질때를 알기위해
+
+
+        builder = new NotificationCompat.Builder(this, "default").setOngoing(true);
         //노티피케이션의 객체 선언부분이라고 보면됨
         // setOngoing을 하면 고정
         builder.setSmallIcon(R.drawable.noti_icon);
-        builder.setSubText("테스트입니다");
+        builder.setSubText(codeFormatWithoutQRCode.get(count));
         builder.setCustomContentView(customView);
         builder.setContentIntent(notiIntent);//Pending 인텐트를 실행
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -477,6 +484,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 if (which == 0) {
                     notification(which - 1);
                 } else {
