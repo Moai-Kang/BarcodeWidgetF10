@@ -69,7 +69,8 @@
 
             <Button
                 android:id="@+id/addByCamera"
-                android:text="카메라 인식"
+                android:text="카메라로 인식하기"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -79,7 +80,8 @@
 
             <Button
                 android:id="@+id/addByAlbum"
-                android:text="사진 가져오기"
+                android:text="앨범에서 가져오기"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -97,6 +99,7 @@
             <Button
                 android:id="@+id/addBySelf"
                 android:text="직접 입력하기"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -107,6 +110,7 @@
             <Button
                 android:id="@+id/setting"
                 android:text="알림창 설정"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
