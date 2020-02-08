@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final static String SHARED_PREF_CODE_FORMAT= "codeFormat";
     final static String SHARED_PREF_CODE_NICKNAME= "codeNickname";
 
+    final static String NOTI_STRING = "NULL";
+
     static NotificationManager notificationManager;
     static NotificationCompat.Builder builder;
 
