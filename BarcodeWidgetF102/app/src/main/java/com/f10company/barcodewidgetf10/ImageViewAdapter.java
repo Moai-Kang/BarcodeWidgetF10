@@ -79,7 +79,9 @@ public class ImageViewAdapter extends PagerAdapter {
             // LayoutInflater를 통해 "/res/layout/pages.xml"을 뷰로 생성.
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //view = inflater.inflate(R.layout.pages, container, false);
+
             view = inflater.inflate(R.layout.pages, null);
+
 
             CreateCodeImage cci = new CreateCodeImage();
             nick = view.findViewById(R.id.nickname);
@@ -95,6 +97,7 @@ public class ImageViewAdapter extends PagerAdapter {
                     builder.setItems(items, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
                             if (which == 0) {
                                 changeNick(v, position);
                             } else if (which == 1) {
@@ -114,6 +117,7 @@ public class ImageViewAdapter extends PagerAdapter {
                                             }
                                         }
 
+
                                         MainActivity.codeeNickname.remove(position);
                                         MainActivity.codeFormat.remove(position);
                                         MainActivity.codeString.remove(position);
@@ -121,23 +125,29 @@ public class ImageViewAdapter extends PagerAdapter {
                                         notifyDataSetChanged();
                                     }
                                 });
+
                                 builder2.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                     }
                                 });
+
                                 builder2.show();
                             }
                         }
                     });
                     builder.show();
 
+
                     return false;
                 }
             });
 
+
             if (codeString.isEmpty())
             {
+
             }
             else {
                 img.setImageBitmap(cci.createBitMatrix(codeString.get(position), codeFormat.get(position), display));
@@ -145,7 +155,9 @@ public class ImageViewAdapter extends PagerAdapter {
 
                 if (!codeFormat.get(position).equals("QR_CODE")) {
                     code.setText(codeString.get(position));
+
                 } else {
+
                     code.setVisibility(View.GONE);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
                     lp.setMargins(0, 0, 0, 0);
