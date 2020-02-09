@@ -6,8 +6,6 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-
-
     <ImageView
         android:id="@+id/content_view"
         android:layout_width="match_parent"

@@ -89,6 +89,7 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
                 }
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
+                finish();
             }
         }
     }

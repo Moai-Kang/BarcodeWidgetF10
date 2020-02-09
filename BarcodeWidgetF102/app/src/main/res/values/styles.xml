@@ -17,7 +17,6 @@
     </style>
 
 
-    출처: https://androidmemo.tistory.com/11 [안드로이드 메모장]
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
