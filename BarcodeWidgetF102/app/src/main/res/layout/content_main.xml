@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="2"
-        android:background="@android:color/transparent"
+        android:background="@color/colorMainSkyBlue"
         android:layout_below="@+id/vp"
         android:id="@+id/buttonLayout">
 
@@ -74,7 +74,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 
@@ -85,7 +84,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
         </LinearLayout>
@@ -103,7 +101,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 
@@ -114,7 +111,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 

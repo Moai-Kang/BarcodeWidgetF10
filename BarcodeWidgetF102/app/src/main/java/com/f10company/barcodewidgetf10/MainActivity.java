@@ -114,10 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         indicator = (CircleIndicator) findViewById(R.id.indicator);
 
 
-
         final EditText barcode = new EditText(MainActivity.this);
-
-
 
         ///////////////////
         /*순서 바꾸지 말 것.*/
@@ -328,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int margin = (int) (dpValue * d);
 
             vp.setClipToPadding(false);
-            vp.setPadding(margin, 0, margin, 0);
+            vp.setPadding(margin, 0, margin-15, 0);
 
             vp.setPageMargin(margin/2);
 
@@ -343,6 +340,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             vp.setAdapter(pagerAdapter);
+
+
         }
 
         else if (codeString.isEmpty()) {

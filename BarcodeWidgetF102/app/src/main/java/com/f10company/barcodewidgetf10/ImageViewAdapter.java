@@ -136,8 +136,10 @@ public class ImageViewAdapter extends PagerAdapter {
                 }
             });
 
-            if (codeString.isEmpty()) {
-            } else {
+            if (codeString.isEmpty())
+            {
+            }
+            else {
                 img.setImageBitmap(cci.createBitMatrix(codeString.get(position), codeFormat.get(position), display));
                 nick.setText(codeNickname.get(position)); //코드 별명 만들면 별명으로
 
