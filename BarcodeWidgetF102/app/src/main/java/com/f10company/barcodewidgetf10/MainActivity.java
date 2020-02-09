@@ -60,11 +60,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton  questionButton, exclamationButton;
     private Button addCameraButton, addAlbumButton, addSelfButton, settingButton;
 
+
     static ArrayList<String> codeString;
     static ArrayList<String> codeFormat;
     static ArrayList<String> codeFormatWithoutQRCode;
     static ArrayList<String> codeStringWithoutQRCode;
     static ArrayList<String> codeeNickname;
+
+    final static String SHARED_PREF_NOW_POSITION_KEY= "key";
+    final static String SHARED_PREF_CODE_STRING =  "codeString";
+    final static String SHARED_PREF_CODE_FORMAT= "codeFormat";
+    final static String SHARED_PREF_CODE_NICKNAME= "codeNickname";
+
+    final static String NOTI_STRING = "NULL";
+
+    static NotificationManager notificationManager;
+    static NotificationCompat.Builder builder;
 
     private ImageViewAdapter pagerAdapter;
     static ArrayListSaveByJson temp = new ArrayListSaveByJson();
@@ -74,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView emptyImage;
     ForViewPagerSize vp;
     CircleIndicator indicator;
+
+
+    static int nowPosition =0 ; // 현재 디스플레이에 띄어저 있는 장소
+    static String nowNotificationCodePosition = NOTI_STRING ; // 노티피케이션에 띄어져 있는 코드 위치//코드지울때 노티가 해당 코드이면 같이 없어질때를 알기위해
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +108,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ctx = getBaseContext();
         display = getWindowManager().getDefaultDisplay();
 
-        codeString = temp.getStringArrayPref(MainActivity.this, "codeString");
-        codeFormat = temp.getStringArrayPref(MainActivity.this, "codeFormat");
-        codeeNickname = temp.getStringArrayPref(MainActivity.this, "codeNickname");
+
+        codeString = temp.getStringArrayPref(MainActivity.this, SHARED_PREF_CODE_STRING);
+        codeFormat = temp.getStringArrayPref(MainActivity.this, SHARED_PREF_CODE_FORMAT);
+        codeeNickname = temp.getStringArrayPref(MainActivity.this, SHARED_PREF_CODE_NICKNAME);
+        nowPosition = temp.getNowPosition(MainActivity.this, SHARED_PREF_NOW_POSITION_KEY);
 
         vp = (ForViewPagerSize) findViewById(R.id.vp);
         indicator = (CircleIndicator) findViewById(R.id.indicator);
-        //barcode=(EditText)findViewById(R.id.barcode_edit);//바코드 직접입력
+
 
         final EditText barcode = new EditText(MainActivity.this);
 
@@ -110,6 +128,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setButtonLayout();
         ///////////////////
 
+        Log.d("tttt","nowpostion in onCreate= "+nowPosition);
+        if(nowPosition>0)
+            vp.setCurrentItem(nowPosition);
+
         questionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         exclamationButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(MainActivity.this, v);
@@ -233,12 +256,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                            AlertDialog alertDialog = builder2.create();
                            alertDialog.show();
                        }
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ///////////////////
 
         ///////////////////
+
         /*하단 버튼 크기와 마진 */
         LinearLayout buttonLinearLayout = (LinearLayout)findViewById(R.id.buttonLayout);
 
@@ -341,7 +359,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int margin = (int) (dpValue * d);
 
             vp.setClipToPadding(false);
-            vp.setPadding(margin, 0, margin, 0);
+
+            vp.setPadding(margin, 0, margin-15, 0);
 
             vp.setPageMargin(margin/2);
 
@@ -354,13 +373,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             vp.setLayoutParams(lp);
             ///////////////////////////////////////////////////////////////////////////////
 
+
+
             vp.setAdapter(pagerAdapter);
         }
+
+
 
         else if (codeString.isEmpty()) {
             vp.setVisibility(View.GONE);
             emptyImage.setVisibility(View.VISIBLE);
             vp.setVisibility(View.INVISIBLE);
+
 
             int dpValue = 54;
             float d = getResources().getDisplayMetrics().density;
@@ -378,11 +402,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ///////////////////////////////////////////////////////////////////////////////
 
             vp.setAdapter(pagerAdapter);
+
         }
     }
 
     @Override
     protected void onStop() {
+        nowPosition = vp.getCurrentItem();
+        temp.setNowPosition(MainActivity.this,SHARED_PREF_NOW_POSITION_KEY,nowPosition);
+        Log.d("tttt","nowpostion in onstop = "+nowPosition);
         super.onStop();
     }
 
@@ -398,25 +426,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
 
-                codeString.add(data.getExtras().getString("codeString"));
-                codeFormat.add(data.getExtras().getString("codeFormat"));
-                codeeNickname.add(data.getExtras().getString("codeNickname"));
+                codeString.add(data.getExtras().getString(SHARED_PREF_CODE_STRING));
+                codeFormat.add(data.getExtras().getString(SHARED_PREF_CODE_FORMAT));
+                codeeNickname.add(data.getExtras().getString(SHARED_PREF_CODE_NICKNAME));
 
                 save();
 
-                //setViewPager();
+
+                if(vp.getVisibility()==View.INVISIBLE)
+                    setViewPager();
+                pagerAdapter.notifyDataSetChanged();
+
+
             }
         }
     }
 
     public void save() {
-        temp.setStringArrayPref(MainActivity.this, "codeString", codeString);
-        temp.setStringArrayPref(MainActivity.this, "codeFormat", codeFormat);
-        temp.setStringArrayPref(MainActivity.this, "codeNickname", codeeNickname);
+
+        temp.setStringArrayPref(MainActivity.this, SHARED_PREF_CODE_STRING, codeString);
+        temp.setStringArrayPref(MainActivity.this, SHARED_PREF_CODE_FORMAT, codeFormat);
+        temp.setStringArrayPref(MainActivity.this, SHARED_PREF_CODE_NICKNAME, codeeNickname);
+
     }
 
     void notification(int count) {
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         if (count == -1) {
             notificationManager.cancel(1);//취소하는 경우
             return;
@@ -428,12 +464,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MainActivity.codeFormatWithoutQRCode.get(count), MainActivity.display); // 이 줄 수정
         customView.setImageViewBitmap(R.id.content_view, sub_codeImage);
         Intent Pintent = new Intent(this, MainActivity.class);//Pending Intent에 적용될 클래스
-        PendingIntent notiIntent = PendingIntent.getActivity(this, 0, Pintent, PendingIntent.FLAG_UPDATE_CURRENT);//노티피케이션 클릭시 홈화면으로 이동
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default").setOngoing(true);
+        PendingIntent notiIntent = PendingIntent.getActivity(this, 0, Pintent, PendingIntent.FLAG_CANCEL_CURRENT);//노티피케이션 클릭시 홈화면으로 이동
+
+        nowNotificationCodePosition = codeStringWithoutQRCode.get(count);//코드지울때 노티가 해당 코드이면 같이 없어질때를 알기위해
+
+
+        builder = new NotificationCompat.Builder(this, "default").setOngoing(true);
         //노티피케이션의 객체 선언부분이라고 보면됨
         // setOngoing을 하면 고정
         builder.setSmallIcon(R.drawable.noti_icon);
-        builder.setSubText("테스트입니다");
+        builder.setSubText(codeFormatWithoutQRCode.get(count));
         builder.setCustomContentView(customView);
         builder.setContentIntent(notiIntent);//Pending 인텐트를 실행
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -486,6 +526,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 if (which == 0) {
                     notification(which - 1);
                 } else {

@@ -3,7 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorMainSkyBlue" >#70C7CB</color>
-    <color name="navigationBarColor" >#70C7CB</color>
+    <color name="colorMainSkyBlue" >#7987a1</color>
+    <color name="colorMainButtonPressFalse" >#4c5566</color>
+    <color name="colorMainButtonPressTrue" >#3C4351</color>
+    <color name="navigationBarColor" >#7987a1</color>
 
 </resources>

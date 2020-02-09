@@ -43,4 +43,19 @@ public class ArrayListSaveByJson extends AppCompatActivity {
         }
         return urls;
     }
+
+    /*현재 디스플레이에 띄어져있는 화면 관련 입출력*/
+    int getNowPosition(Context context, String key)
+    {
+        SharedPreferences prefs = context.getSharedPreferences("sFile", context.MODE_PRIVATE);
+        return prefs.getInt(key,0);
+    }
+
+    void setNowPosition(Context context, String key,int position)
+    {
+        SharedPreferences prefs = context.getSharedPreferences("sFile", context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(key,position);
+        editor.commit();
+    }
 }

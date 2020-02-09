@@ -6,23 +6,6 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#70C7CB">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/noti_icon"
-            android:layout_marginLeft="10sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:text="아 맞다!멤버쉽" />
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/content_view"

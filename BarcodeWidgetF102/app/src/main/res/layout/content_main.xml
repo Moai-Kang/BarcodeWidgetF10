@@ -38,10 +38,13 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/empty" />
 
+
     <com.f10company.barcodewidgetf10.ForViewPagerSize
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
 
 
     <me.relex.circleindicator.CircleIndicator
@@ -56,7 +59,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="2"
-        android:background="@android:color/transparent"
+
+        android:background="@color/colorMainSkyBlue"
+
         android:layout_below="@+id/vp"
         android:id="@+id/buttonLayout">
 
@@ -68,21 +73,23 @@
 
             <Button
                 android:id="@+id/addByCamera"
-                android:text="카메라 인식"
+
+                android:text="카메라로 인식하기"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 
             <Button
                 android:id="@+id/addByAlbum"
-                android:text="사진 가져오기"
+
+                android:text="앨범에서 가져오기"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
         </LinearLayout>
@@ -96,20 +103,22 @@
             <Button
                 android:id="@+id/addBySelf"
                 android:text="직접 입력하기"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 
             <Button
                 android:id="@+id/setting"
                 android:text="알림창 설정"
+                android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                style="?android:attr/borderlessButtonStyle"
+
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 

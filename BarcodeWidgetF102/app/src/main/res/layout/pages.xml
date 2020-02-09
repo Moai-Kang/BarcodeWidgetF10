@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:layout_weight="5"
-    android:background="@drawable/view_shape_card"
+    android:background="@drawable/view_shape_vp"
     android:orientation="vertical">
 
     <TextView
@@ -41,8 +41,12 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:padding="0dp"
+
+            android:paddingRight="15px"
+            android:paddingBottom="15px"
+
             android:scaleType="centerCrop" />
+        <!--그림자를 위한 하드코딩-->
 
         <TextView
             android:id="@+id/code"

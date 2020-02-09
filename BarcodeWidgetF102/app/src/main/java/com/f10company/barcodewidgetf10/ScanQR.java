@@ -21,6 +21,7 @@ public class ScanQR extends AppCompatActivity {
         IntentIntegrator intentIntegrator =
                 new IntentIntegrator(this);
         intentIntegrator.setBeepEnabled(false);
+        intentIntegrator.setPrompt("바코드/QR코드를 인식해주세요.");
         intentIntegrator.initiateScan();
     }
 
@@ -30,7 +31,7 @@ public class ScanQR extends AppCompatActivity {
         if (result != null) {
             //스캔을 하지 못하면
             if (result.getContents() == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "카메라 인식 취소", Toast.LENGTH_LONG).show();
                 finish();
             }
             //스캔을 완료하면

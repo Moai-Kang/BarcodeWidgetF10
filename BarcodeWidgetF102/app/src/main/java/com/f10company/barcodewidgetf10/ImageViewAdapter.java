@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -78,7 +79,9 @@ public class ImageViewAdapter extends PagerAdapter {
             // LayoutInflater를 통해 "/res/layout/pages.xml"을 뷰로 생성.
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //view = inflater.inflate(R.layout.pages, container, false);
-            view = inflater.inflate(R.layout.pages,null);
+
+            view = inflater.inflate(R.layout.pages, null);
+
 
             CreateCodeImage cci = new CreateCodeImage();
             nick = view.findViewById(R.id.nickname);
@@ -94,19 +97,26 @@ public class ImageViewAdapter extends PagerAdapter {
                     builder.setItems(items, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (which == 0)
-                            {
-                                changeNick(v,position);
-                            }
-                            else if (which == 1)
-                            {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                                builder.setTitle("바코드/QR코드를 삭제하시겠습니까?");
+                            if (which == 0) {
+                                changeNick(v, position);
+                            } else if (which == 1) {
+                                AlertDialog.Builder builder2 = new AlertDialog.Builder(mContext);
 
-                                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                builder2.setTitle("바코드/QR코드를 삭제하시겠습니까?");
+
+                                builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
+                                        if (MainActivity.nowNotificationCodePosition != MainActivity.NOTI_STRING)
+                                        {
+                                            if(MainActivity.nowNotificationCodePosition == MainActivity.codeString.get(position))
+                                            {
+                                                MainActivity.notificationManager.cancel(1);
+                                                MainActivity.nowNotificationCodePosition = MainActivity.NOTI_STRING;
+                                            }
+                                        }
+
 
                                         MainActivity.codeeNickname.remove(position);
                                         MainActivity.codeFormat.remove(position);
@@ -115,23 +125,29 @@ public class ImageViewAdapter extends PagerAdapter {
                                         notifyDataSetChanged();
                                     }
                                 });
-                                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+
+                                builder2.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                     }
                                 });
-                                builder.show();
+
+                                builder2.show();
                             }
                         }
                     });
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+                    builder.show();
+
 
                     return false;
                 }
             });
 
-            if (codeString.isEmpty()) {
+
+            if (codeString.isEmpty())
+            {
+
             }
             else {
                 img.setImageBitmap(cci.createBitMatrix(codeString.get(position), codeFormat.get(position), display));
@@ -139,8 +155,9 @@ public class ImageViewAdapter extends PagerAdapter {
 
                 if (!codeFormat.get(position).equals("QR_CODE")) {
                     code.setText(codeString.get(position));
-                }
-                else {
+
+                } else {
+
                     code.setVisibility(View.GONE);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
                     lp.setMargins(0, 0, 0, 0);
