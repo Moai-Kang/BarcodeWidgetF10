@@ -38,10 +38,12 @@
         android:layout_alignParentBottom="true"
         android:src="@drawable/empty" />
 
+
     <com.f10company.barcodewidgetf10.ForViewPagerSize
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
 
 
@@ -57,7 +59,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:weightSum="2"
+
         android:background="@color/colorMainSkyBlue"
+
         android:layout_below="@+id/vp"
         android:id="@+id/buttonLayout">
 
@@ -69,6 +73,7 @@
 
             <Button
                 android:id="@+id/addByCamera"
+
                 android:text="카메라로 인식하기"
                 android:textColor="@android:color/white"
                 android:layout_width="0dp"
@@ -79,6 +84,7 @@
 
             <Button
                 android:id="@+id/addByAlbum"
+
                 android:text="앨범에서 가져오기"
                 android:textColor="@android:color/white"
                 android:layout_width="0dp"
@@ -101,6 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 
@@ -111,6 +118,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+
                 android:layout_margin="5px"
                 android:background="@drawable/view_shape_main" />
 
