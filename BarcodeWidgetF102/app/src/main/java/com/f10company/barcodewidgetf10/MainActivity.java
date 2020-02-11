@@ -86,10 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ForViewPagerSize vp;
     CircleIndicator indicator;
 
-
     static int nowPosition =0 ; // 현재 디스플레이에 띄어저 있는 장소
     static String nowNotificationCodePosition = NOTI_STRING ; // 노티피케이션에 띄어져 있는 코드 위치//코드지울때 노티가 해당 코드이면 같이 없어질때를 알기위해
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ctx = getBaseContext();
         display = getWindowManager().getDefaultDisplay();
 
-
         codeString = temp.getStringArrayPref(MainActivity.this, SHARED_PREF_CODE_STRING);
         codeFormat = temp.getStringArrayPref(MainActivity.this, SHARED_PREF_CODE_FORMAT);
         codeeNickname = temp.getStringArrayPref(MainActivity.this, SHARED_PREF_CODE_NICKNAME);
@@ -120,14 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final EditText barcode = new EditText(MainActivity.this);
 
-
         ///////////////////
         /*순서 바꾸지 말 것.*/
         setViewPager();
         setIndicator();
         setButtonLayout();
         ///////////////////
-
         Log.d("tttt","nowpostion in onCreate= "+nowPosition);
         if(nowPosition>0)
             vp.setCurrentItem(nowPosition);
@@ -149,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
+
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.info:
@@ -168,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 popup.show();
             }
         });
+
 
         addCameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,35 +224,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             AlertDialog alertDialog = builder2.create();
                             alertDialog.show();
                         }
-                       if(which==1){
-                           AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
-                           builder2.setTitle("QR코드를 입력해주세요.");
-                           builder2.setView(barcode);
-                           builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                               @Override
-                               public void onClick(DialogInterface dialog, int which) {
-                                   if (barcode.length() != 0) {
-                                       Point size = new Point();
-                                       MainActivity.display.getSize(size);
-                                       int width = size.x;
-                                       int height = size.y;
-                                       Log.d("확인", "입력한 QR코드는:" + barcode.getText().toString());
-                                       codeString.add(barcode.getText().toString());
-                                       codeFormat.add(QR_CODE);
-                                       codeeNickname.add("QR코드별명");
-                                       save();
-                                       setViewPager();
-                                       CreateCodeImage edit_bar = new CreateCodeImage();
-                                       edit_bar.createBitMatrix(barcode.getText().toString(), QR_CODE, MainActivity.display);
-                                   }
-                                   else if(barcode.length()==0){
-                                       Toast.makeText(getApplicationContext(),"QR코드를 입력해주세요",Toast.LENGTH_SHORT).show();
-                                   }
-                               }
-                           });
-                           AlertDialog alertDialog = builder2.create();
-                           alertDialog.show();
-                       }
+                        if(which==1){
+                            AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
+                            builder2.setTitle("QR코드를 입력해주세요.");
+                            builder2.setView(barcode);
+                            builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (barcode.length() != 0) {
+                                        Point size = new Point();
+                                        MainActivity.display.getSize(size);
+                                        int width = size.x;
+                                        int height = size.y;
+                                        Log.d("확인", "입력한 QR코드는:" + barcode.getText().toString());
+                                        codeString.add(barcode.getText().toString());
+                                        codeFormat.add(QR_CODE);
+                                        codeeNickname.add("QR코드별명");
+                                        save();
+                                        setViewPager();
+                                        CreateCodeImage edit_bar = new CreateCodeImage();
+                                        edit_bar.createBitMatrix(barcode.getText().toString(), QR_CODE, MainActivity.display);
+                                    }
+                                    else if(barcode.length()==0){
+                                        Toast.makeText(getApplicationContext(),"QR코드를 입력해주세요",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                            AlertDialog alertDialog = builder2.create();
+                            alertDialog.show();
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
+
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,10 +273,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
+
+        temp.setNowPosition(MainActivity.this,SHARED_PREF_NOW_POSITION_KEY, nowPosition);
+
+        if(vp.getCurrentItem()==0)
+            setViewPager();
+
         super.onWindowFocusChanged(hasFocus);
+
         save();
-        setViewPager();
         setIndicator();
+
     }
 
     public void setIndicator()
@@ -312,7 +324,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ///////////////////
 
         ///////////////////
-
         /*하단 버튼 크기와 마진 */
         LinearLayout buttonLinearLayout = (LinearLayout)findViewById(R.id.buttonLayout);
 
@@ -348,7 +359,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             emptyImage.setVisibility(View.INVISIBLE);
             vp.setVisibility(View.VISIBLE);
 
-
             pagerAdapter = new ImageViewAdapter(this);
             pagerAdapter.getData(codeString, codeFormat, codeeNickname, display);////////54352
             pagerAdapter.setContext(MainActivity.this);
@@ -359,7 +369,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int margin = (int) (dpValue * d);
 
             vp.setClipToPadding(false);
-
             vp.setPadding(margin, 0, margin-15, 0);
 
             vp.setPageMargin(margin/2);
@@ -374,17 +383,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ///////////////////////////////////////////////////////////////////////////////
 
 
-
             vp.setAdapter(pagerAdapter);
+
+
         }
-
-
 
         else if (codeString.isEmpty()) {
             vp.setVisibility(View.GONE);
             emptyImage.setVisibility(View.VISIBLE);
             vp.setVisibility(View.INVISIBLE);
-
 
             int dpValue = 54;
             float d = getResources().getDisplayMetrics().density;
@@ -432,22 +439,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 save();
 
-
                 if(vp.getVisibility()==View.INVISIBLE)
                     setViewPager();
                 pagerAdapter.notifyDataSetChanged();
-
 
             }
         }
     }
 
     public void save() {
-
         temp.setStringArrayPref(MainActivity.this, SHARED_PREF_CODE_STRING, codeString);
         temp.setStringArrayPref(MainActivity.this, SHARED_PREF_CODE_FORMAT, codeFormat);
         temp.setStringArrayPref(MainActivity.this, SHARED_PREF_CODE_NICKNAME, codeeNickname);
-
     }
 
     void notification(int count) {
@@ -539,6 +542,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
     }
 }
