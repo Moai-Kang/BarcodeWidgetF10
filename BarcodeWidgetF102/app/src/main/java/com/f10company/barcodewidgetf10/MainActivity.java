@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setIndicator();
         setButtonLayout();
         ///////////////////
-        Log.d("tttt","nowpostion in onCreate= "+nowPosition);
+
         if(nowPosition>0)
             vp.setCurrentItem(nowPosition);
 
@@ -211,7 +211,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         codeFormat.add(CODE_128);
                                         codeeNickname.add("바코드별명");
                                         save();
+                                        if(vp.getVisibility() == View.VISIBLE)
+                                        {
+                                            nowPosition = vp.getCurrentItem();
+                                        }
                                         setViewPager();
+                                        vp.setCurrentItem(nowPosition);
                                         CreateCodeImage edit_bar = new CreateCodeImage();
                                         edit_bar.createBitMatrix(barcode.getText().toString(), CODE_128, MainActivity.display);
                                     }
@@ -240,7 +245,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         codeFormat.add(QR_CODE);
                                         codeeNickname.add("QR코드별명");
                                         save();
+                                        if(vp.getVisibility() == View.VISIBLE)
+                                        {
+                                            nowPosition = vp.getCurrentItem();
+                                        }
                                         setViewPager();
+                                        vp.setCurrentItem(nowPosition);
                                         CreateCodeImage edit_bar = new CreateCodeImage();
                                         edit_bar.createBitMatrix(barcode.getText().toString(), QR_CODE, MainActivity.display);
                                     }

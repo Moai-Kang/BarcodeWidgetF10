@@ -110,13 +110,19 @@ public class ImageViewAdapter extends PagerAdapter {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         if (MainActivity.nowNotificationCodePosition != MainActivity.NOTI_STRING)
                                         {
+                                            Log.d("sss","1="+MainActivity.nowNotificationCodePosition);
+                                            Log.d("sss","2="+MainActivity.codeString.get(position));
+                                            Log.d("sss","3="+MainActivity.codeString.get(position).equals(MainActivity.nowNotificationCodePosition));
                                             if(MainActivity.nowNotificationCodePosition == MainActivity.codeString.get(position))
                                             {
+                                                /*로그1과 로그2를 비교하고 equals()를 쓰면 값이 같기에 같다고 나오나,
+                                                '=='을 쓰면 주소값을 비교하기에 같은 값의 코드라도 노티띄운 카드를 지울때만 사라짐
+                                                call by reference, call by value 의 적절한 예*/
+                                                Log.d("sss","4= in");
                                                 MainActivity.notificationManager.cancel(1);
                                                 MainActivity.nowNotificationCodePosition = MainActivity.NOTI_STRING;
                                             }
                                         }
-
 
                                         MainActivity.codeeNickname.remove(position);
                                         MainActivity.codeFormat.remove(position);
