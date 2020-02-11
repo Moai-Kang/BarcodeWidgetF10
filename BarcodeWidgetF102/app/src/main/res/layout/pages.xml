@@ -41,8 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="2"
+
             android:paddingRight="15px"
             android:paddingBottom="15px"
+
             android:scaleType="centerCrop" />
         <!--그림자를 위한 하드코딩-->
 
