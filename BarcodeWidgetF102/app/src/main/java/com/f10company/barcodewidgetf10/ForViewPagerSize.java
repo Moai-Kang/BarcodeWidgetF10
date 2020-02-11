@@ -40,7 +40,7 @@ public class ForViewPagerSize extends ViewPager {
                 if (h > height) height = h;
             }
 
-            height = (int)((float)488/(float)1920*getResources().getDisplayMetrics().heightPixels); // 휴대폰 세로길이의 1920분의 488픽셀만큼 top margin
+            height = (int)((float)488/(float)1920*getResources().getDisplayMetrics().heightPixels); // 휴대폰 세로길이의 1920분의 488픽셀만큼
 
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
 

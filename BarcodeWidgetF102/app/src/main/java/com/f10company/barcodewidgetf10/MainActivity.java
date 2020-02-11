@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     final static String NOTI_STRING = "NULL";
 
+    final static int CODE_IMG_PIX = 15;
+
     static NotificationManager notificationManager;
     static NotificationCompat.Builder builder;
 
@@ -378,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int margin = (int) (dpValue * d);
 
             vp.setClipToPadding(false);
-            vp.setPadding(margin, 0, margin-15, 0);
+            vp.setPadding(margin, 0, margin-CODE_IMG_PIX, 0);
 
             vp.setPageMargin(margin/2);
 

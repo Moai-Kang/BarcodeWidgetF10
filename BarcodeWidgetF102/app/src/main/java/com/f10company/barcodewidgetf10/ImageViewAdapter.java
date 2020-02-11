@@ -30,6 +30,8 @@ import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class ImageViewAdapter extends PagerAdapter {
 
+
+
     // LayoutInflater 서비스 사용을 위한 Context 참조 저장.
     private Context mContext = null;
     public ImageView img;
@@ -87,6 +89,7 @@ public class ImageViewAdapter extends PagerAdapter {
             nick = view.findViewById(R.id.nickname);
             code = view.findViewById(R.id.code);
             img = view.findViewById(R.id.codeImage);
+            img.setPadding(0,0,MainActivity.CODE_IMG_PIX,MainActivity.CODE_IMG_PIX);
 
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -161,15 +164,20 @@ public class ImageViewAdapter extends PagerAdapter {
 
                 if (!codeFormat.get(position).equals("QR_CODE")) {
                     code.setText(codeString.get(position));
-
                 } else {
 
                     code.setVisibility(View.GONE);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                    lp.setMargins(0, 0, 0, 0);
-                    img.setLayoutParams(lp);
-                    img.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
+                    LinearLayout.LayoutParams lp_nick= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+                    lp_nick.weight=2;
+                    nick.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+                    nick.setLayoutParams(lp_nick);
+
+                    LinearLayout.LayoutParams lp_img = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+                    //lp.setMargins(0, 0, 0, 0);
+                    lp_img.weight = 6;
+                    img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    img.setLayoutParams(lp_img);
                 }
             }
         }
