@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton  questionButton, exclamationButton;
     private Button addCameraButton, addAlbumButton, addSelfButton, settingButton;
-
+//
+    //
 
     static ArrayList<String> codeString;
     static ArrayList<String> codeFormat;
