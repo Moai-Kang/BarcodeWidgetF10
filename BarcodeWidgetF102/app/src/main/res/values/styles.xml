@@ -28,10 +28,16 @@
 
     <style name="Theme.AppCompat.Transparent">
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">#00000000</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="Theme.AppCompat.PartTransparent">
+        <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">#99000000</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
-
     </style>
 
 </resources>

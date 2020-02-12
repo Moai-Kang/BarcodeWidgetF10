@@ -6,7 +6,7 @@
     <item
         android:id="@+id/info"
         android:orderInCategory="100"
-        android:title="회사 소개"
+        android:title="회사 소개 및 문의"
         app:showAsAction="never" />
     <item
         android:id="@+id/openSource2"

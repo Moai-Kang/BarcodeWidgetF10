@@ -7,6 +7,6 @@
     <color name="colorMainButtonPressFalse" >#4c5566</color>
     <color name="colorMainButtonPressTrue" >#3C4351</color>
     <color name="navigationBarColor" >#7987a1</color>
-    <color name="transparent">#00000000</color>
+    <color name="colorPartiallyTransparent">#99000000</color>
 
 </resources>
