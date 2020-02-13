@@ -30,6 +30,8 @@ import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
 
 public class ImageViewAdapter extends PagerAdapter {
 
+
+
     // LayoutInflater 서비스 사용을 위한 Context 참조 저장.
     private Context mContext = null;
     public ImageView img;
@@ -87,6 +89,7 @@ public class ImageViewAdapter extends PagerAdapter {
             nick = view.findViewById(R.id.nickname);
             code = view.findViewById(R.id.code);
             img = view.findViewById(R.id.codeImage);
+            img.setPadding(0,0,MainActivity.CODE_IMG_PIX,MainActivity.CODE_IMG_PIX);
 
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -110,13 +113,19 @@ public class ImageViewAdapter extends PagerAdapter {
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         if (MainActivity.nowNotificationCodePosition != MainActivity.NOTI_STRING)
                                         {
+                                            Log.d("sss","1="+MainActivity.nowNotificationCodePosition);
+                                            Log.d("sss","2="+MainActivity.codeString.get(position));
+                                            Log.d("sss","3="+MainActivity.codeString.get(position).equals(MainActivity.nowNotificationCodePosition));
                                             if(MainActivity.nowNotificationCodePosition == MainActivity.codeString.get(position))
                                             {
+                                                /*로그1과 로그2를 비교하고 equals()를 쓰면 값이 같기에 같다고 나오나,
+                                                '=='을 쓰면 주소값을 비교하기에 같은 값의 코드라도 노티띄운 카드를 지울때만 사라짐
+                                                call by reference, call by value 의 적절한 예*/
+                                                Log.d("sss","4= in");
                                                 MainActivity.notificationManager.cancel(1);
                                                 MainActivity.nowNotificationCodePosition = MainActivity.NOTI_STRING;
                                             }
                                         }
-
 
                                         MainActivity.codeeNickname.remove(position);
                                         MainActivity.codeFormat.remove(position);
@@ -155,15 +164,20 @@ public class ImageViewAdapter extends PagerAdapter {
 
                 if (!codeFormat.get(position).equals("QR_CODE")) {
                     code.setText(codeString.get(position));
-
                 } else {
 
                     code.setVisibility(View.GONE);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                    lp.setMargins(0, 0, 0, 0);
-                    img.setLayoutParams(lp);
-                    img.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
+                    LinearLayout.LayoutParams lp_nick= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+                    lp_nick.weight=2;
+                    nick.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+                    nick.setLayoutParams(lp_nick);
+
+                    LinearLayout.LayoutParams lp_img = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+                    //lp.setMargins(0, 0, 0, 0);
+                    lp_img.weight = 6;
+                    img.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    img.setLayoutParams(lp_img);
                 }
             }
         }
