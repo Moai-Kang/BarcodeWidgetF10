@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     static ArrayListSaveByJson temp = new ArrayListSaveByJson();
     static Display display;
 
+    EditText barcode;//selfInsert용
+
     static Context ctx;
     ImageView emptyImage;
     ForViewPagerSize vp;
@@ -106,8 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vp = (ForViewPagerSize) findViewById(R.id.vp);
         indicator = (CircleIndicator) findViewById(R.id.indicator);
 
-
-        final EditText barcode = new EditText(MainActivity.this);
+        barcode =  new EditText(MainActivity.this);//selfInsert용
 
         ///////////////////
         /*순서 바꾸지 말 것.*/
@@ -177,80 +178,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addSelfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] item = {"바코드입력", "QR입력"};
+                final String[] item = {"바코드입력(CODE_128)", "QR입력"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("선택");
                 builder.setItems(item, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (barcode.getParent() != null) {
-                            ((ViewGroup) barcode.getParent()).removeView(barcode);
-                            barcode.setText("");
-                        }
-                        if (which == 0) {
-                            AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
-                            builder2.setTitle("바코드를 입력해주세요.");
-                            builder2.setView(barcode);
-                            builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (barcode.length() != 0) {
-                                        Point size = new Point();
-                                        MainActivity.display.getSize(size);
-                                        int width = size.x;
-                                        int height = size.y;
-                                        Log.d("확인", "입력한 바코드는:" + barcode.getText().toString());
-                                        codeString.add(barcode.getText().toString());
-                                        codeFormat.add(CODE_128);
-                                        codeeNickname.add("바코드별명");
-                                        save();
-                                        if (vp.getVisibility() == View.VISIBLE) {
-                                            nowPosition = vp.getCurrentItem();
-                                        }
-                                        setViewPager();
-                                        vp.setCurrentItem(nowPosition);
-                                        CreateCodeImage edit_bar = new CreateCodeImage();
-                                        edit_bar.createBitMatrix(barcode.getText().toString(), CODE_128, MainActivity.display);
-                                    } else if (barcode.length() == 0) {
-                                        Toast.makeText(getApplicationContext(), "바코드를 입력해주세요", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                            AlertDialog alertDialog = builder2.create();
-                            alertDialog.show();
-                        }
-                        if (which == 1) {
-                            AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
-                            builder2.setTitle("QR코드를 입력해주세요.");
-                            builder2.setView(barcode);
-                            builder2.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (barcode.length() != 0) {
-                                        Point size = new Point();
-                                        MainActivity.display.getSize(size);
-                                        int width = size.x;
-                                        int height = size.y;
-                                        Log.d("확인", "입력한 QR코드는:" + barcode.getText().toString());
-                                        codeString.add(barcode.getText().toString());
-                                        codeFormat.add(QR_CODE);
-                                        codeeNickname.add("QR코드별명");
-                                        save();
-                                        if (vp.getVisibility() == View.VISIBLE) {
-                                            nowPosition = vp.getCurrentItem();
-                                        }
-                                        setViewPager();
-                                        vp.setCurrentItem(nowPosition);
-                                        CreateCodeImage edit_bar = new CreateCodeImage();
-                                        edit_bar.createBitMatrix(barcode.getText().toString(), QR_CODE, MainActivity.display);
-                                    } else if (barcode.length() == 0) {
-                                        Toast.makeText(getApplicationContext(), "QR코드를 입력해주세요", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                            AlertDialog alertDialog = builder2.create();
-                            alertDialog.show();
-                        }
+                        selfInsertCode(which);
                     }
                 });
                 AlertDialog alertDialog = builder.create();
@@ -258,15 +192,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showBarcodeList();
             }
         });
-
     }
+
+    void selfInsertCode(final int position)
+    {
+        if (barcode.getParent() != null) {
+            ((ViewGroup) barcode.getParent()).removeView(barcode);
+            barcode.setText("");
+        }
+        AlertDialog.Builder builder3 = new AlertDialog.Builder(MainActivity.this);
+        switch (position)
+        {
+            case 0:builder3.setTitle("바코드를 입력해주세요."); break;
+            case 1:builder3.setTitle("QR코드를 입력해주세요.");
+        }
+
+        builder3.setView(barcode);
+        builder3.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (barcode.length() != 0) {
+                    Point size = new Point();
+                    MainActivity.display.getSize(size);
+                    int width = size.x;
+                    int height = size.y;
+                    Log.d("sss","which = "+position);
+                    switch (position)
+                    {
+                        case 0:
+                            codeString.add(barcode.getText().toString());
+                            codeFormat.add(CODE_128);
+                            codeeNickname.add("바코드별명");
+                            break;
+                        case 1:
+                            codeString.add(barcode.getText().toString());
+                            codeFormat.add(QR_CODE);
+                            codeeNickname.add("QR코드별명");
+                            default:
+                    }
+
+                    save();
+                    if (vp.getVisibility() == View.VISIBLE) {
+                        nowPosition = vp.getCurrentItem();
+                        pagerAdapter.notifyDataSetChanged();
+                    }
+                    setViewPager();
+                    vp.setCurrentItem(nowPosition);
+                } else if (barcode.length() == 0) {
+                    switch (position)
+                    {
+                        case 0:Toast.makeText(getApplicationContext(), "바코드를 입력해주세요", Toast.LENGTH_SHORT).show();break;
+                        case 1:Toast.makeText(getApplicationContext(), "QR코드를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        AlertDialog alertDialog3 = builder3.create();
+        alertDialog3.show();
+    }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
