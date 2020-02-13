@@ -430,7 +430,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void confirm(Intent data)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("추가하시겠습니까?");
+        //builder.setTitle("추가하시겠습니까?");
 
         final String codeStringConfirm = data.getExtras().getString(SHARED_PREF_CODE_STRING);
         final String codeFormatConfirm = data.getExtras().getString(SHARED_PREF_CODE_FORMAT);
@@ -459,7 +459,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         textView.setText(codeStringConfirm);
 
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("추가", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 codeString.add(codeStringConfirm);
