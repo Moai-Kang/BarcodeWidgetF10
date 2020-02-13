@@ -425,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         LayoutInflater inflater=getLayoutInflater();
         View dialogView;
-        if(codeFormatConfirm.equals("QR_CODE")) {
+        if(codeFormatConfirm.equals(QR_CODE)) {
             dialogView = inflater.inflate(R.layout.dialog_confirm_qr, null);
         }
         else {
@@ -525,9 +525,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codeStringWithoutQRCode = new ArrayList<>();
         codeFormatWithoutQRCode = new ArrayList<>();
 
-        Log.d("asdf", "1");
         for (int i = 0; i < codeString.size(); i++) {
-            if (!codeFormat.get(i).equals("QR_CODE")) { //qr 코드가 아닐때만
+            if (!codeFormat.get(i).equals(QR_CODE)) { //qr 코드가 아닐때만
                 codeStringWithoutQRCode.add(codeString.get(i));
                 codeFormatWithoutQRCode.add(codeFormat.get(i));
             }

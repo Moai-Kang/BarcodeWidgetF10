@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.qrcode.encoder.QRCode;
+import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
+import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
 public class ScanQR extends AppCompatActivity {
 
@@ -41,7 +44,7 @@ public class ScanQR extends AppCompatActivity {
                 Intent intent = new Intent(ScanQR.this, MainActivity.class);
                 intent.putExtra("codeString", result.getContents());
                 intent.putExtra("codeFormat", result.getFormatName());
-                if(result.getFormatName().equals("QR_CODE"))
+                if(result.getFormatName().equals(QR_CODE))
                     intent.putExtra("codeNickname", MainActivity.DEFAULT_CODE_QR_NICK);
                 else
                     intent.putExtra("codeNickname", MainActivity.DEFAULT_CODE_BAR_NICK);

@@ -27,6 +27,8 @@ import com.google.zxing.common.HybridBinarizer;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.InputStream;
+import static com.google.zxing.integration.android.IntentIntegrator.CODE_128;
+import static com.google.zxing.integration.android.IntentIntegrator.QR_CODE;
 
 public class ReadGalleryCodeActivity extends AppCompatActivity {
 
@@ -116,7 +118,7 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
             intent.putExtra("codeString", result1.getText());
             intent.putExtra("codeFormat", result1.getBarcodeFormat().toString());
 
-            if(result1.getBarcodeFormat().toString().equals("QR_CODE"))
+            if(result1.getBarcodeFormat().toString().equals(QR_CODE))
                 intent.putExtra("codeNickname", MainActivity.DEFAULT_CODE_QR_NICK);
             else
                 intent.putExtra("codeNickname", MainActivity.DEFAULT_CODE_BAR_NICK);
