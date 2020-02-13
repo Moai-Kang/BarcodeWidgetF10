@@ -117,9 +117,9 @@ public class ReadGalleryCodeActivity extends AppCompatActivity {
             intent.putExtra("codeFormat", result1.getBarcodeFormat().toString());
 
             if(result1.getBarcodeFormat().toString().equals("QR_CODE"))
-                intent.putExtra("codeNickname", "QR코드 별명");
+                intent.putExtra("codeNickname", "새 QR코드");
             else
-                intent.putExtra("codeNickname", "바코드 별명");
+                intent.putExtra("codeNickname", "새 바코드");
 
             setResult(Activity.RESULT_OK, intent);
             finish();

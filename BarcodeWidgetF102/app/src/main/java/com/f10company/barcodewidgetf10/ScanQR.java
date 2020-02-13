@@ -42,9 +42,9 @@ public class ScanQR extends AppCompatActivity {
                 intent.putExtra("codeString", result.getContents());
                 intent.putExtra("codeFormat", result.getFormatName());
                 if(result.getFormatName().equals("QR_CODE"))
-                    intent.putExtra("codeNickname", "QR코드 별명");
+                    intent.putExtra("codeNickname", "새 QR코드");
                 else
-                    intent.putExtra("codeNickname", "바코드 별명");
+                    intent.putExtra("codeNickname", "새 바코드");
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
