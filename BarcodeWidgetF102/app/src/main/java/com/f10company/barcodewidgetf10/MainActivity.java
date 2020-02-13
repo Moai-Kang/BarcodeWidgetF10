@@ -230,28 +230,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     switch (position)
                     {
                         case 0:
-                            codeString.add(codeStringSelfInsert);
-                            codeFormat.add(CODE_128);
-                            codeeNickname.add(DEFAULT_CODE_BAR_NICK);
                             data.putExtra(SHARED_PREF_CODE_FORMAT,CODE_128);
                             data.putExtra(SHARED_PREF_CODE_NICKNAME,DEFAULT_CODE_BAR_NICK);
                             break;
                         case 1:
-                            codeString.add(codeStringSelfInsert);
-                            codeFormat.add(QR_CODE);
-                            codeeNickname.add(DEFAULT_CODE_QR_NICK);
-                            data.putExtra(SHARED_PREF_CODE_FORMAT,CODE_128);
+                            data.putExtra(SHARED_PREF_CODE_FORMAT,QR_CODE);
                             data.putExtra(SHARED_PREF_CODE_NICKNAME,DEFAULT_CODE_QR_NICK);
                             default:
                     }
 
-                    save();
-                    if (vp.getVisibility() == View.VISIBLE) {
-                        nowPosition = vp.getCurrentItem();
-                        pagerAdapter.notifyDataSetChanged();
-                    }
-                    setViewPager();
-                    vp.setCurrentItem(nowPosition);
+                    confirm(data);
 
                 } else if (barcode.length() == 0) {
                     switch (position)
@@ -439,11 +427,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View dialogView;
         if(codeFormatConfirm.equals("QR_CODE")) {
             dialogView = inflater.inflate(R.layout.dialog_confirm_qr, null);
-            Log.d("sss","in qr");
         }
         else {
             dialogView = inflater.inflate(R.layout.dialog_confirm_barcode, null);
-            Log.d("sss","in bar");
         }
 
         builder.setView(dialogView);
