@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final static String SHARED_PREF_CODE_FORMAT = "codeFormat";
     final static String SHARED_PREF_CODE_NICKNAME = "codeNickname";
 
+    final static String DEFAULT_CODE_QR_NICK = "새 QR코드";
+    final static String DEFAULT_CODE_BAR_NICK = "새 바코드";
+
     final static String NOTI_STRING = "NULL";
 
     final static int CODE_IMG_PIX = 15;
@@ -218,22 +221,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (barcode.length() != 0) {
-                    Point size = new Point();
-                    MainActivity.display.getSize(size);
-                    int width = size.x;
-                    int height = size.y;
-                    Log.d("sss","which = "+position);
+
+                    String codeStringSelfInsert = barcode.getText().toString();
+
+                    Intent data = new Intent();
+                    data.putExtra(SHARED_PREF_CODE_STRING,codeStringSelfInsert);
+
                     switch (position)
                     {
                         case 0:
-                            codeString.add(barcode.getText().toString());
+                            codeString.add(codeStringSelfInsert);
                             codeFormat.add(CODE_128);
-                            codeeNickname.add("바코드별명");
+                            codeeNickname.add(DEFAULT_CODE_BAR_NICK);
+                            data.putExtra(SHARED_PREF_CODE_FORMAT,CODE_128);
+                            data.putExtra(SHARED_PREF_CODE_NICKNAME,DEFAULT_CODE_BAR_NICK);
                             break;
                         case 1:
-                            codeString.add(barcode.getText().toString());
+                            codeString.add(codeStringSelfInsert);
                             codeFormat.add(QR_CODE);
-                            codeeNickname.add("QR코드별명");
+                            codeeNickname.add(DEFAULT_CODE_QR_NICK);
+                            data.putExtra(SHARED_PREF_CODE_FORMAT,CODE_128);
+                            data.putExtra(SHARED_PREF_CODE_NICKNAME,DEFAULT_CODE_QR_NICK);
                             default:
                     }
 
@@ -244,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     setViewPager();
                     vp.setCurrentItem(nowPosition);
+
                 } else if (barcode.length() == 0) {
                     switch (position)
                     {
