@@ -491,7 +491,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Bitmap sub_codeImage = cci.createBitMatrix(MainActivity.codeStringWithoutQRCode.get(count),
                 MainActivity.codeFormatWithoutQRCode.get(count), MainActivity.display); // 이 줄 수정
+
         customView.setImageViewBitmap(R.id.content_view, sub_codeImage);
+
         Intent Pintent = new Intent(this, MainActivity.class);//Pending Intent에 적용될 클래스
         PendingIntent notiIntent = PendingIntent.getActivity(this, 0, Pintent, PendingIntent.FLAG_CANCEL_CURRENT);//노티피케이션 클릭시 홈화면으로 이동
 
@@ -502,8 +504,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //노티피케이션의 객체 선언부분이라고 보면됨
         // setOngoing을 하면 고정
         builder.setSmallIcon(R.drawable.noti_icon);
-        builder.setSubText(codeFormatWithoutQRCode.get(count));
-        builder.setCustomContentView(customView);
+
+        builder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
+
+        builder.setContent(customView);
+        //builder.setCustomContentView(customView);
+
         builder.setContentIntent(notiIntent);//Pending 인텐트를 실행
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
         // 사용자가 탭을 클릭하면 자동 제거
@@ -511,9 +517,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 알림 표시
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
+            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_HIGH));
         }
-
         notificationManager.notify(1, builder.build());
     }
 
