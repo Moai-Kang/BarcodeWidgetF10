@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Information extends AppCompatActivity {
-
-
     private ArrayList<HashMap<String,String>> array = new ArrayList<HashMap<String,String>>();
     HashMap<String,String> data;
     ListView listView;
