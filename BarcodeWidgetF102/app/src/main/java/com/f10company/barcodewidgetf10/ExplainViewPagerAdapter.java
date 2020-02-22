@@ -5,15 +5,27 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.util.ArrayList;
+
 public class ExplainViewPagerAdapter  extends PagerAdapter {
 
     // LayoutInflater 서비스 사용을 위한 Context 참조 저장.
     private Context mContext = null ;
+
+
+    //설명창 이미지//
+    int arr[] ={
+            R.drawable.mainexplain1,
+            R.drawable.mainexplain2,
+    R.drawable.explain1,
+    R.drawable.explain2,
+    R.drawable.explain3};
 
     public ExplainViewPagerAdapter() {
 
@@ -33,8 +45,8 @@ public class ExplainViewPagerAdapter  extends PagerAdapter {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.explain_page, container, false);
 
-            TextView textView = (TextView) view.findViewById(R.id.title) ;
-            textView.setText("TEXT " + position) ;
+            ImageView imageView = (ImageView)view.findViewById(R.id.explainImage);
+            imageView.setImageResource(arr[position]);
         }
 
         // 뷰페이저에 추가.
@@ -52,7 +64,7 @@ public class ExplainViewPagerAdapter  extends PagerAdapter {
     @Override
     public int getCount() {
         // 전체 페이지 수는 10개로 고정.
-        return 10;
+        return 5;
     }
 
     @Override
