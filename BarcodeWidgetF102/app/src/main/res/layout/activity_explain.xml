@@ -9,18 +9,26 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="뒤로가기"
-            android:id="@+id/exit"/>
+        android:layout_height="wrap_content">
 
-    </LinearLayout>
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicatorInExplain"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:ci_drawable="@drawable/indicator_black_radius"
+            android:layout_centerInParent="true"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:text="뒤로가기"
+                android:id="@+id/exit"/>
+    </RelativeLayout>
 
 
     <androidx.viewpager.widget.ViewPager
