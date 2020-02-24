@@ -16,11 +16,11 @@ import java.util.ArrayList;
 public class ExplainViewPagerAdapter  extends PagerAdapter {
 
     // LayoutInflater 서비스 사용을 위한 Context 참조 저장.
-    private Context mContext = null ;
+    static private Context mContext = null ;
 
 
     //설명창 이미지//
-    int arr[] ={
+    static int arr[] ={
             R.drawable.mainexplain1,
             R.drawable.mainexplain2,
     R.drawable.explain1,

@@ -9,7 +9,8 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="false"
-        android:hardwareAccelerated="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:icon="@mipmap/app_icon"
         android:label="아! 맞다 멤버십"
         android:roundIcon="@mipmap/app_icon_round"
