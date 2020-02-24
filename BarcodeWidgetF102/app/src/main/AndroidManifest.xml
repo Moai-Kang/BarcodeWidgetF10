@@ -10,6 +10,7 @@
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:hardwareAccelerated="false"
+        android:resizeableActivity="false"
         android:largeHeap="true"
         android:icon="@mipmap/app_icon"
         android:label="아! 맞다 멤버십"

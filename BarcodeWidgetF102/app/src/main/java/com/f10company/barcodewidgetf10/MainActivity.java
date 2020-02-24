@@ -289,8 +289,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int buttonSize = (int) ((float) 88 / (float) 1080 * getResources().getDisplayMetrics().widthPixels); // 휴대폰 가로길이의 1080분의 88 크기
 
         RelativeLayout.LayoutParams lp_exclamation = new RelativeLayout.LayoutParams(buttonSize, buttonSize);
-        lp_exclamation.setMargins(buttonMargin, buttonMargin, buttonMargin, buttonMargin);
-
         RelativeLayout.LayoutParams lp_question = new RelativeLayout.LayoutParams(buttonSize, buttonSize);
         lp_question.setMargins(buttonMargin, buttonMargin, buttonMargin, buttonMargin);
 
