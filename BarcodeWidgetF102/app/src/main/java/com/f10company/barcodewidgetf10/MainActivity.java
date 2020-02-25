@@ -291,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RelativeLayout.LayoutParams lp_exclamation = new RelativeLayout.LayoutParams(buttonSize, buttonSize);
         RelativeLayout.LayoutParams lp_question = new RelativeLayout.LayoutParams(buttonSize, buttonSize);
         lp_question.setMargins(buttonMargin, buttonMargin, buttonMargin, buttonMargin);
+        lp_exclamation.setMargins(buttonMargin, buttonMargin, buttonMargin, buttonMargin);
 
         lp_exclamation.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         lp_exclamation.addRule(RelativeLayout.ALIGN_PARENT_TOP);
