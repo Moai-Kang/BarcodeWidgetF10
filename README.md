@@ -1,6 +1,6 @@
-# 아!맞다 멤버십(Amatta Membership)
+# 아 맞다! 멤버십(Amatta Membership)
 
-휴대폰 전원 버튼 한번으로 “단 1초만에” 코드 사용이 가능한 편리함!! 더 이상의 어플 접속&로그인은 NO! 네트워크 연결도 NO!  
+휴대폰 전원 버튼 한번으로 “단 1초 만에” 코드 사용이 가능한 편리함! 더 이상의 어플 접속과 로그인은 NO! 네트워크 연결도 NO!  
 
 
 ### made by F10 Company
@@ -10,7 +10,7 @@
 https://play.google.com/store/apps/details?id=com.f10company.barcodewidgetf10
 
 ## 사용 방법 (Usage)
-설명창이미지추가
+설명 창 이미지 추가
 
 ## 기여 방법 (Contributing)
 ### 강근우 (Moai-Kang)
