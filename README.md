@@ -3,7 +3,11 @@
 <img width="453" alt="스크린샷 2020-03-18 오전 6 25 46" src="https://user-images.githubusercontent.com/52201658/76903515-8403e700-68e1-11ea-99e8-5dc980d35f90.png">
 <img width="446" alt="스크린샷 2020-03-18 오전 6 26 08" src="https://user-images.githubusercontent.com/52201658/76903512-81a18d00-68e1-11ea-8371-71d03de1e84c.png">
 
-휴대폰 전원 버튼 한번으로 “단 1초 만에” 코드 사용이 가능한 편리함! 더 이상의 어플 접속과 로그인은 NO! 네트워크 연결도 NO!  
+[아! 맞다 멤버십]은 바코드나 QR코드로 이루어진 다양한 코드를 스마트폰에 쉽고 편리하고 저장하고 사용할 수 있도록 하는 어플입니다.
+
+다른 통신사와 매장 어플과는 다르게 데이터를 직접 어플에 저장하여 사용하므로, “별다른 로그인 없이”, “네트워크 연결없이” 휴대폰을 켜자마자 사용 가능합니다.
+
+이제는 알림창에서 바로 뜨는 바코드로 어플을 열고 로딩하는 시간 없이 “단 1초만에” 사용하세요!
 
 <a href="https://play.google.com/store/apps/details?id=com.f10company.barcodewidgetf10">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
